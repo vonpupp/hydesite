@@ -116,9 +116,7 @@ def _hidden_run(cmd):
     with hide('output','running','warnings'), settings(warn_only=True):
         return local(cmd)
 
-@task
-def test_web_compile():
-    deploy_web()
+def travis_push_github():
     GH_CNAME = os.getenv('GH_CNAME')
     GH_USER_EMAIL = os.getenv('GH_USER_EMAIL')
     GH_USER_NAME  = os.getenv('GH_USER_NAME')
@@ -126,19 +124,24 @@ def test_web_compile():
     GH_TOKEN = os.getenv('GH_TOKEN')
     GH_USER_LOGIN = os.getenv('GH_USER_LOGIN')
     GH_PUSH_REPO  = os.getenv('GH_PUSH_REPO')
-    local('cd {}'.format(DEPLOY_PATH))
-    local('touch .nojekyll')
-    local('echo "{}" > CNAME'.format(GH_CNAME))
-    local('git init')
-    local('git config user.email "{}"'.format(GH_USER_EMAIL))
-    local('git config user.name "{}"'.format(GH_USER_NAME))
-    local('git add -A .')
-    local('git commit -a -m "Travis #{}"'.format(TRAVIS_BUILD_NUMBER))
-    _hidden_run('git remote add origin https://{}@github.com/{}/{}'.format(
-        GH_TOKEN,
-        GH_USER_LOGIN,
-        GH_PUSH_REPO))
-    _hiden_run('git push --quiet --force origin master > /dev/null 2>&1')
+    with cd(DEPLOY_PATH):
+        local('touch .nojekyll')
+        local('echo "{}" > CNAME'.format(GH_CNAME))
+        local('git init')
+        local('git config user.email "{}"'.format(GH_USER_EMAIL))
+        local('git config user.name "{}"'.format(GH_USER_NAME))
+        local('git add -A .')
+        local('git commit -a -m "Travis #{}"'.format(TRAVIS_BUILD_NUMBER))
+        _hidden_run('git remote add origin https://{}@github.com/{}/{}'.format(
+            GH_TOKEN,
+            GH_USER_LOGIN,
+            GH_PUSH_REPO))
+        _hidden_run('git push --quiet --force origin master > /dev/null 2>&1')
+
+@task
+def test_web_compile():
+    deploy_web()
+    travis_push_github()
 
 def smush():
     local('smusher ./media/images')
