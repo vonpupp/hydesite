@@ -1,3 +1,4 @@
+from __future__ import with_statement
 from fabric.api import *
 import os
 import fabric.contrib.project as project
@@ -128,11 +129,12 @@ def test_web_compile():
     local('git config user.name "{}"'.format(GH_USER_NAME))
     local('git add -A .')
     local('git commit -a -m "Travis #{}"'.format(TRAVIS_BUILD_NUMBER))
-    local('git remote add origin https://{}@github.com/{}/{}'.format(
-        GH_TOKEN,
-        GH_USER_LOGIN,
-        GH_PUSH_REPO))
-    local('git push --quiet --force origin master > /dev/null 2>&1')
+    with hide('output'):
+        local('git remote add origin https://{}@github.com/{}/{}'.format(
+            GH_TOKEN,
+            GH_USER_LOGIN,
+            GH_PUSH_REPO))
+        local('git push --quiet --force origin master > /dev/null 2>&1')
 
 def smush():
     local('smusher ./media/images')
