@@ -1,0 +1,16 @@
+# Git modules
+content/media/js/reveal.js
+
+# Private stuff
+content/private
+
+# Python compiled files
+*.pyc
+
+deploy
+.hyde_deps
+content/blog/tags
+content/media/images/talks/*.png
+stork.cfg
+.DS_Store
+resources/

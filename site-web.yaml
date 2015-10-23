@@ -1,0 +1,130 @@
+base_url: /
+simple_copy:
+  - media/*
+media_root: media # Relative path from content folder.
+media_url: /media # URL where the media files are served from.
+
+plugins:
+  - hyde.ext.plugins.meta.MetaPlugin
+  - hyde.ext.plugins.meta.AutoExtendPlugin
+  - hyde.ext.plugins.text.SyntextPlugin
+  - hyde.ext.plugins.text.TextlinksPlugin
+  - hyde.ext.plugins.urls.UrlCleanerPlugin
+  - hyde.ext.plugins.meta.SorterPlugin
+  - hyde.ext.plugins.meta.TaggerPlugin
+  - hyde.ext.plugins.structure.PaginatorPlugin
+  - hyde.ext.plugins.languages.LanguagePlugin
+
+syntax:
+  use_figure: False
+
+sorter:
+  name:
+    attr: name
+    filters:
+      source_file.kind: html
+      is_processable: True
+  time:
+     attr: meta.created
+     reverse: True
+     filters:
+       source_file.kind: html
+       is_processable: True
+
+#sorter:
+#  name:
+#    attr:
+#      - relative_path
+#  time:
+#    attr:
+#      - meta.created
+#    reverse: true
+#    filters:
+#      source.kind: html
+#      meta.listable: true
+#  time_fr:
+#    attr:
+#      - meta.created
+#      - relative_path
+#    reverse: true
+#    filters:
+#      source.kind: html
+#      meta.listable: true
+#      meta.language: fr
+#  time_en:
+#    attr:
+#      - meta.created
+#      - relative_path
+#    reverse: true
+#    filters:
+#      source.kind: html
+#      meta.listable: true
+#      meta.language: en
+
+tagger:
+  sorter: time
+  archives:
+    atom:
+      source: blog
+      target: blog/tags
+      template: tag.xml.j2
+      extension: xml
+    blog:
+      source: blog
+      target: blog/tags
+      template: tag.j2
+      extension: html
+
+#urlcleaner:
+#  index_file_names:
+#    - index.html
+#  strip_extensions:
+#    - html
+
+meta:
+  nodemeta: meta.yaml
+  menu:
+    - name: Blog
+      type: node
+      url: blog/
+      title: Blog
+      extends: blog.j2
+      default_block: article
+      icon: pencil
+
+
+context:
+  data:
+    menu:
+      - name: Blog
+        type: node
+        url: blog/
+        title: Blog
+        extends: blog.j2
+        default_block: article
+        icon: pencil
+    site_domain: "albertdelafuente.com"
+    site_url: http://www.albertdelafuente.com
+    site_title: Albert De La Fuente
+    blog_title: albert:/dev/blog
+    author:
+      name: Albert De La Fuente
+      url: "http://www.albertdelafuente.com"
+    google_analytics_id: #UA-25393581-1
+    disqus_id: vonpupp
+    twitter_id: vonpupp
+    list_subscribe_url: "//albertdelafuente.us12.list-manage.com/subscribe/post?u=2078b40de4d18256fef954d6e&amp;id=bdd2d44f54"
+#    languages:
+#      fr: Français
+#      en: English
+#      es: Español
+#      pt: Portugues
+
+#meta:
+#  nodemeta: meta.yaml
+#  author: Albert De La Fuente
+#  created: git
+#  modified: git
+#  language: en
+#  analytics: #UA-21482482-4
+#  keywords: "archlinux, python, network"

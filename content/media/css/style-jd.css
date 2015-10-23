@@ -1,0 +1,188 @@
+body {
+    font-family: "Open Sans", sans-serif;
+}
+
+/* My face near the brand in the navbar */
+.navbar-brand > img {
+    max-width: 60px;
+    max-height: 60px;
+    vertical-align: middle;
+    margin-right: 12px;
+    padding: 2px;
+    /* Boostrap set "block" but since I put my name on the side, it's no good */
+    display: inline;
+}
+
+/* Used in blog listing for blog image */
+.blog-title-image {
+    width: 100%;
+    height: 200px;
+    background-size: cover;
+    box-shadow: inset 0 0 15px rgba(0,0,0,.5);
+    background-position: center;
+    margin-bottom: 1.5em;
+}
+
+.meta {
+    height: 50px;
+}
+
+/* Image in blog posts use that most of the time */
+.illustration {
+  display: block;
+  max-width: 100%;
+  text-align: center;
+  margin: auto;
+  margin-bottom: 20px;
+  clear: both;
+}
+
+.illustration.pull-left {
+  margin-right: 20px;
+  margin-bottom: 20px;
+}
+
+.illustration.pull-right {
+  margin-left: 20px;
+  margin-bottom: 20px;
+}
+
+.illustration.icon {
+    max-width: 75px;
+}
+
+.font-montserrat {
+	font-family: "MontSerrat", sans-serif;
+}
+
+/* Clear float before code sections */
+.highlight {
+    clear: both;
+}
+
+#thgtp-form {
+    clear: both;
+}
+
+.bg-sl-thgtp-section {
+    background-size: cover;
+    box-shadow: inset 0px 0px 30px 20px rgba(0,0,0,.6);
+    background-position: center;
+}
+
+.thgtp-section {
+  background-color: #f5f5f5;
+  box-shadow: inset 0px 0px 0px 1px rgba(0,0,0,.1);
+}
+
+img.img-icon {
+    max-width: 128px;
+}
+
+img.img-icon-xs {
+    max-width: 64px;
+    vertical-align: middle;
+}
+
+.shadow-box {
+    border-radius: 5px;
+    box-shadow: 0 0 15px rgba(0,0,0,0.15);
+}
+
+.margin-top {
+    margin-top: 50px;
+}
+
+.margin-bottom {
+    margin-bottom: 50px;
+}
+
+.margin {
+    margin-top: 50px;
+    margin-bottom: 50px;
+}
+
+.margin-side {
+    margin-left: 50px;
+    margin-right: 50px;
+}
+
+/* Override some from default style that are… weird */
+ul > li:before,
+ol > li:before {
+    content: none;
+}
+
+ul li, ol li {
+  list-style-type: initial;
+  position: relative;
+  margin-bottom: 10px;
+  margin-left: 1em;
+}
+
+li.slider {
+    list-style: none;
+}
+
+h1,
+.h1 {
+    font-size: 38px;
+    font-family: 'Raleway', sans-serif;
+    font-weight: 900;
+    line-height: 1.2em;
+}
+
+h2,
+.h2 {
+    font-size: 34px;
+    font-family: 'Raleway', sans-serif;
+}
+
+.breadcrumb li {
+    margin-left: 0;
+}
+
+.mix .fig {
+    height: 200px;
+    background: #fafafa;
+    text-align: center;
+    position: relative;         /* For vert centering */
+}
+
+.mix img {
+    float: none;
+    width: auto;
+    max-height: 200px;
+    max-width: 100%;
+    /* For vertical centering */
+    position: absolute;
+    top: 50%;
+    transform: translate(-50%, -50%)
+}
+
+.mask [class*=fa-] {
+        color: #FFF;
+        font-size: 60px;
+}
+
+.newsletter {
+    height: 100%;
+}
+
+/* Add padding left at least for mobile */
+.archive .post .entry-header, .archive .post .entry-content {
+    padding-left: 30px;
+}
+
+/* Fixes a bug with pattern where text has wrong z-index */
+.pattern > * {
+    position: relative;
+}
+
+.middle {
+    transition: all 2s;
+}
+
+.jumbotron {
+    height: auto;
+}

@@ -1,0 +1,100 @@
+from fabric.api import *
+import os
+import fabric.contrib.project as project
+
+GIT_BRANCH = local("git branch | grep '^*' | cut -d' ' -f2", capture=True)
+
+ROOT_PATH = os.path.abspath(os.path.dirname(__file__))
+DEPLOY_FOLDER = 'deploy-{}.albertdelafuente.com'.format(GIT_BRANCH)
+DEPLOY_PATH = os.path.join(ROOT_PATH, '..', DEPLOY_FOLDER)
+
+import ipdb; ipdb.set_trace() # BREAKPOINT
+
+def _hyde(args):
+    return local('hyde -x {}'.format(args))
+
+def _clean():
+    local('rm -rf {}'.format(DEPLOY_PATH))
+    local('rm -rf content/blog/tags')
+
+def _deploy():
+    _clean()
+    if DEPLOY_TYPE == 'local':
+        local('ln -sf ~/Dropbox/appdata/hydesite/private ./content')
+    else:
+        local('find content/ -maxdepth 1 -type l -delete')
+    HYDE_CONFIG = 'site-{}.yaml'.format(DEPLOY_TYPE)
+    _hyde('gen -c {} -d {}'.format(HYDE_CONFIG, DEPLOY_PATH))
+
+def _run():
+    _deploy()
+    local('cd {} && python -m SimpleHTTPServer'.format(DEPLOY_PATH))
+
+@task
+def deploy():
+    deploy_web()
+
+@task
+def deploy_web():
+    DEPLOY_TYPE = 'web'
+    _deploy()
+
+@task
+def deploy_develop():
+    DEPLOY_TYPE = 'develop'
+    _deploy()
+
+@task
+def deploy_local():
+    DEPLOY_TYPE = 'local'
+    _deploy()
+
+@task(default=True)
+def run_web():
+    DEPLOY_TYPE = 'web'
+    _run()
+
+@task
+def run_develop():
+    DEPLOY_TYPE = 'develop'
+    _run()
+
+@task
+def run_local():
+    DEPLOY_TYPE = 'local'
+    _run()
+
+@task
+def test_web_compile():
+    deploy_web()
+    GH_CNAME = os.getenv('GH_CNAME')
+    GH_USER_EMAIL = os.getenv('GH_USER_EMAIL')
+    GH_USER_NAME  = os.getenv('GH_USER_NAME')
+    TRAVIS_BUILD_NUMBER  = os.getenv('TRAVIS_BUILD_NUMBER')
+    GH_TOKEN = os.getenv('GH_TOKEN')
+    GH_USER_LOGIN = os.getenv('GH_USER_LOGIN')
+    GH_PUSH_REPO  = os.getenv('GH_PUSH_REPO')
+    local('touch .nojekyll')
+    local('echo "{} > CNAME"'.format(GH_CNAME))
+    local('git init')
+    local('git config user.email "{}"'.format(GH_USER_EMAIL))
+    local('git config user.name "{}"'.format(GH_USER_NAME))
+    local('git add -A .')
+    local('git commit -a -m "Travis #{}"'.format(TRAVIS_BUILD_NUMBER))
+    local('git remote add origin https://{}@github.com/{}/{}'.format(
+        GH_TOKEN,
+        GH_USER_LOGIN,
+        GH_PUSH_REPO))
+    local('git push --quiet --force origin master > /dev/null 2>&1')
+
+def smush():
+    local('smusher ./media/images')
+
+@hosts(PROD)
+def publish():
+    regen()
+    project.rsync_project(
+        remote_dir=DEST_PATH,
+        local_dir=DEPLOY_PATH.rstrip('/') + '/',
+        delete=True
+    )

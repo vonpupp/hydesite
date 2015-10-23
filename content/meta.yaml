@@ -1,0 +1,5 @@
+extends: base.j2
+default_block: content
+author: Albert De La Fuente
+charset: UTF-8
+#icon: user
