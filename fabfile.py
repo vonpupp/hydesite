@@ -124,7 +124,7 @@ def travis_push_github():
     GH_TOKEN = os.getenv('GH_TOKEN')
     GH_USER_LOGIN = os.getenv('GH_USER_LOGIN')
     GH_PUSH_REPO  = os.getenv('GH_PUSH_REPO')
-    with cd(DEPLOY_PATH):
+    with lcd(DEPLOY_PATH):
         local('touch .nojekyll')
         local('echo "{}" > CNAME'.format(GH_CNAME))
         local('git init')
