@@ -112,6 +112,10 @@ def deploy():
 def run():
     run_web()
 
+def _hidden_run(cmd):
+    with hide('output','running','warnings'), settings(warn_only=True):
+        return run(cmd)
+
 @task
 def test_web_compile():
     deploy_web()
@@ -124,18 +128,17 @@ def test_web_compile():
     GH_PUSH_REPO  = os.getenv('GH_PUSH_REPO')
     local('cd {}'.format(DEPLOY_PATH))
     local('touch .nojekyll')
-    local('echo "{} > CNAME"'.format(GH_CNAME))
+    local('echo "{}" > CNAME'.format(GH_CNAME))
     local('git init')
     local('git config user.email "{}"'.format(GH_USER_EMAIL))
     local('git config user.name "{}"'.format(GH_USER_NAME))
     local('git add -A .')
     local('git commit -a -m "Travis #{}"'.format(TRAVIS_BUILD_NUMBER))
-    with hide('output'):
-        local('git remote add origin https://{}@github.com/{}/{}'.format(
-            GH_TOKEN,
-            GH_USER_LOGIN,
-            GH_PUSH_REPO))
-        local('git push --quiet --force origin master > /dev/null 2>&1')
+    _hidden_run('git remote add origin https://{}@github.com/{}/{}'.format(
+        GH_TOKEN,
+        GH_USER_LOGIN,
+        GH_PUSH_REPO))
+    _hiden_run('git push --quiet --force origin master > /dev/null 2>&1')
 
 def smush():
     local('smusher ./media/images')
