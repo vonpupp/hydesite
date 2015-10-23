@@ -122,6 +122,7 @@ def test_web_compile():
     GH_TOKEN = os.getenv('GH_TOKEN')
     GH_USER_LOGIN = os.getenv('GH_USER_LOGIN')
     GH_PUSH_REPO  = os.getenv('GH_PUSH_REPO')
+    local('cd {}'.format(DEPLOY_PATH))
     local('touch .nojekyll')
     local('echo "{} > CNAME"'.format(GH_CNAME))
     local('git init')
