@@ -114,7 +114,7 @@ def run():
 
 def _hidden_run(cmd):
     with hide('output','running','warnings'), settings(warn_only=True):
-        return run(cmd)
+        return local(cmd)
 
 @task
 def test_web_compile():
