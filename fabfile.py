@@ -5,10 +5,8 @@ import fabric.contrib.project as project
 GIT_BRANCH = local("git branch | grep '^*' | cut -d' ' -f2", capture=True)
 
 ROOT_PATH = os.path.abspath(os.path.dirname(__file__))
-DEPLOY_FOLDER = 'deploy-{}.albertdelafuente.com'.format(GIT_BRANCH)
-DEPLOY_PATH = os.path.join(ROOT_PATH, '..', DEPLOY_FOLDER)
-
-import ipdb; ipdb.set_trace() # BREAKPOINT
+DEPLOY_FOLDER = None
+DEPLOY_PATH = None
 
 def _hyde(args):
     return local('hyde -x {}'.format(args))
@@ -24,6 +22,8 @@ def _deploy():
     else:
         local('find content/ -maxdepth 1 -type l -delete')
     HYDE_CONFIG = 'site-{}.yaml'.format(DEPLOY_TYPE)
+    DEPLOY_FOLDER = 'deploy-{}-{}.albertdelafuente.com'.format(GIT_BRANCH, DEPLOY_TYPE)
+    DEPLOY_PATH = os.path.join(ROOT_PATH, '..', DEPLOY_FOLDER)
     _hyde('gen -c {} -d {}'.format(HYDE_CONFIG, DEPLOY_PATH))
 
 def _run():
@@ -31,8 +31,19 @@ def _run():
     local('cd {} && python -m SimpleHTTPServer'.format(DEPLOY_PATH))
 
 @task
-def deploy():
-    deploy_web()
+def clean_web():
+    DEPLOY_TYPE = 'web'
+    _clean()
+
+@task
+def clean_develop():
+    DEPLOY_TYPE = 'develop'
+    _clean()
+
+@task
+def clean_local():
+    DEPLOY_TYPE = 'local'
+    _clean()
 
 @task
 def deploy_web():
@@ -49,7 +60,7 @@ def deploy_local():
     DEPLOY_TYPE = 'local'
     _deploy()
 
-@task(default=True)
+@task
 def run_web():
     DEPLOY_TYPE = 'web'
     _run()
@@ -63,6 +74,24 @@ def run_develop():
 def run_local():
     DEPLOY_TYPE = 'local'
     _run()
+
+@task
+def clean():
+    clean_web()
+
+@task
+def clean_all():
+    clean_web()
+    clean_develop()
+    clean_local()
+
+@task
+def deploy():
+    deploy_web()
+
+@task(default=True)
+def run():
+    run_web()
 
 @task
 def test_web_compile():
@@ -90,11 +119,11 @@ def test_web_compile():
 def smush():
     local('smusher ./media/images')
 
-@hosts(PROD)
-def publish():
-    regen()
-    project.rsync_project(
-        remote_dir=DEST_PATH,
-        local_dir=DEPLOY_PATH.rstrip('/') + '/',
-        delete=True
-    )
+#@hosts(PROD)
+#def publish():
+#    regen()
+#    project.rsync_project(
+#        remote_dir=DEST_PATH,
+#        local_dir=DEPLOY_PATH.rstrip('/') + '/',
+#        delete=True
+#    )
