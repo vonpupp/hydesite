@@ -2,7 +2,8 @@ from fabric.api import *
 import os
 import fabric.contrib.project as project
 
-GIT_BRANCH = local("git branch | grep '^*' | cut -d' ' -f2", capture=True)
+#GIT_BRANCH = local("git branch | grep '^*' | cut -d' ' -f2", capture=True)
+GIT_BRANCH = local('git rev-parse --abbrev-ref HEAD', capture=True)
 
 ROOT_PATH = os.path.abspath(os.path.dirname(__file__))
 DEPLOY_FOLDER = None
