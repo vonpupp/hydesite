@@ -8,22 +8,30 @@ ROOT_PATH = os.path.abspath(os.path.dirname(__file__))
 DEPLOY_FOLDER = None
 DEPLOY_PATH = None
 
+def _init():
+    global HYDE_CONFIG
+    HYDE_CONFIG = 'site-{}.yaml'.format(DEPLOY_TYPE)
+    global DEPLOY_FOLDER
+    DEPLOY_FOLDER = 'deploy-{}-{}.albertdelafuente.com'.format(GIT_BRANCH, DEPLOY_TYPE)
+    global DEPLOY_PATH
+    DEPLOY_PATH = os.path.join(ROOT_PATH, '..', DEPLOY_FOLDER)
+
 def _hyde(args):
     return local('hyde -x {}'.format(args))
 
 def _clean():
+    _init()
     local('rm -rf {}'.format(DEPLOY_PATH))
     local('rm -rf content/blog/tags')
 
 def _deploy():
+    _init()
     _clean()
     if DEPLOY_TYPE == 'local':
         local('ln -sf ~/Dropbox/appdata/hydesite/private ./content')
     else:
-        local('find content/ -maxdepth 1 -type l -delete')
-    HYDE_CONFIG = 'site-{}.yaml'.format(DEPLOY_TYPE)
-    DEPLOY_FOLDER = 'deploy-{}-{}.albertdelafuente.com'.format(GIT_BRANCH, DEPLOY_TYPE)
-    DEPLOY_PATH = os.path.join(ROOT_PATH, '..', DEPLOY_FOLDER)
+        #local('find content/ -maxdepth 1 -type l -delete')
+        local('rm -f content/private')
     _hyde('gen -c {} -d {}'.format(HYDE_CONFIG, DEPLOY_PATH))
 
 def _run():
@@ -32,46 +40,55 @@ def _run():
 
 @task
 def clean_web():
+    global DEPLOY_TYPE
     DEPLOY_TYPE = 'web'
     _clean()
 
 @task
 def clean_develop():
+    global DEPLOY_TYPE
     DEPLOY_TYPE = 'develop'
     _clean()
 
 @task
 def clean_local():
+    global DEPLOY_TYPE
     DEPLOY_TYPE = 'local'
     _clean()
 
 @task
 def deploy_web():
+    global DEPLOY_TYPE
     DEPLOY_TYPE = 'web'
     _deploy()
 
 @task
 def deploy_develop():
+    global DEPLOY_TYPE
     DEPLOY_TYPE = 'develop'
     _deploy()
 
 @task
 def deploy_local():
+    global DEPLOY_TYPE
     DEPLOY_TYPE = 'local'
     _deploy()
 
 @task
 def run_web():
+    global DEPLOY_TYPE
     DEPLOY_TYPE = 'web'
     _run()
 
 @task
 def run_develop():
+    global DEPLOY_TYPE
     DEPLOY_TYPE = 'develop'
     _run()
 
 @task
 def run_local():
+    global DEPLOY_TYPE
     DEPLOY_TYPE = 'local'
     _run()
 
