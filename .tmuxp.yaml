@@ -1,0 +1,15 @@
+session_name: hyde
+shell_command_before: '[ -d ../.albert -a -f ../.albert/bin/activate ] && source ../.albert/bin/activate'
+windows:
+- window_name: HYDE
+  layout: tiled
+  focus: true
+  #shell_command_before:
+  #  - '[ -d ../.albert -a -f ../.albert/bin/activate ] && source ../.albert/bin/activate'
+  panes:
+    - shell_command:
+      - echo "vim"
+      focus: true
+    - echo "vim"
+    - echo "fab"
+    - echo "ls -la"
