@@ -140,11 +140,14 @@ def travis_push_github():
 
 @task
 def test_web_compile():
+    # Tries to deploy
     deploy_web()
+    # If no error, it pushes to github
     travis_push_github()
 
-def smush():
+def compress_images():
     local('smusher ./media/images')
+    local('find content -name "*.png" -exec pngcrush -ow {}')
 
 #@hosts(PROD)
 #def publish():
