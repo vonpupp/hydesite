@@ -1,5 +1,5 @@
 session_name: hyde
-shell_command_before: '[ -d ../.albert -a -f ../.albert/bin/activate ] && source ../.albert/bin/activate'
+shell_command_before: '[ -d .env -a -f .env/bin/activate ] && source .env/bin/activate'
 windows:
 - window_name: HYDE
   layout: tiled
