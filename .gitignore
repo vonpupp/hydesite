@@ -17,7 +17,8 @@ deploy
 .hyde_deps
 
 # Tags
-content/blog/tags
+content/en/blog/tags
+content/es/blog/tags
 
 content/media/images/talks/*.png
 stork.cfg
