@@ -83,8 +83,9 @@
         </div>
 	<div id="navbar" class="navbar-collapse collapse">
 	  <ul class="nav navbar-nav pull-right">
+            {#{% for menu_item in site.content.child_nodes|sort(attribute='name') %}#}
+            {#{% if menu_item.name != "media" %}#}
             {% for menu_item in site.content.child_nodes|sort(attribute='name') %}
-            {% if menu_item.name != "media" %}
             <li{% if menu_item.full_url in resource.full_url %} class="active"{% endif %}>
               <a href="{{ menu_item.full_url }}">
                 {% if menu_item.meta.icon %}
@@ -93,7 +94,7 @@
                 {{ menu_item.meta.title|capitalize }}
               </a>
             </li>
-            {% endif %}
+            {#{% endif %}#}
             {%- endfor %}
 <!--    <li>
     <div id="lf-menubar">

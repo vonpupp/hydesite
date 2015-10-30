@@ -1,0 +1,12 @@
+extends: base.j2
+default_block: blog
+
+language: en
+
+l10n:
+  otherlinks: "Other stuff"
+  translations: "Also available in"
+  comments: "View or add a new comment (with Disqus)"
+  attachments: "Attachments"
+  tags: "Filed under"
+  share: "Share this article"

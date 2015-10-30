@@ -34,7 +34,7 @@ def _deploy():
     else:
         #local('find content/ -maxdepth 1 -type l -delete')
         local('rm -f content/private')
-    _hyde('gen -c {} -d {}'.format(HYDE_CONFIG, DEPLOY_PATH))
+    _hyde('-v gen -c {} -d {}'.format(HYDE_CONFIG, DEPLOY_PATH))
 
 def _run():
     _deploy()

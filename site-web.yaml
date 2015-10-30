@@ -14,6 +14,7 @@ plugins:
   - hyde.ext.plugins.meta.TaggerPlugin
   - hyde.ext.plugins.structure.PaginatorPlugin
   - hyde.ext.plugins.languages.LanguagePlugin
+  - hyde_ext.custom_filters.CustomFilterPlugin
 
 syntax:
   use_figure: False

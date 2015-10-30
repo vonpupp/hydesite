@@ -94,11 +94,11 @@ context:
     disqus_id: #vonpupp
     twitter_id: #vonpupp
     list_subscribe_url: #"//albertdelafuente.us12.list-manage.com/subscribe/post?u=2078b40de4d18256fef954d6e&amp;id=bdd2d44f54"
-#    languages:
-#      fr: Français
-#      en: English
-#      es: Español
-#      pt: Portugues
+    languages:
+      fr: Français
+      en: English
+      es: Español
+      pt: Portugues
 
 #meta:
 #  nodemeta: meta.yaml
