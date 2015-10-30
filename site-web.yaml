@@ -32,36 +32,6 @@ sorter:
        source_file.kind: html
        is_processable: True
 
-#sorter:
-#  name:
-#    attr:
-#      - relative_path
-#  time:
-#    attr:
-#      - meta.created
-#    reverse: true
-#    filters:
-#      source.kind: html
-#      meta.listable: true
-#  time_fr:
-#    attr:
-#      - meta.created
-#      - relative_path
-#    reverse: true
-#    filters:
-#      source.kind: html
-#      meta.listable: true
-#      meta.language: fr
-#  time_en:
-#    attr:
-#      - meta.created
-#      - relative_path
-#    reverse: true
-#    filters:
-#      source.kind: html
-#      meta.listable: true
-#      meta.language: en
-
 tagger:
   sorter: time
   archives:
@@ -82,28 +52,8 @@ tagger:
 #  strip_extensions:
 #    - html
 
-meta:
-  nodemeta: meta.yaml
-  menu:
-    - name: Blog
-      type: node
-      url: blog/
-      title: Blog
-      extends: blog.j2
-      default_block: article
-      icon: pencil
-
-
 context:
   data:
-    menu:
-      - name: Blog
-        type: node
-        url: blog/
-        title: Blog
-        extends: blog.j2
-        default_block: article
-        icon: pencil
     site_domain: "albertdelafuente.com"
     site_url: http://www.albertdelafuente.com
     site_title: Albert De La Fuente
@@ -115,11 +65,6 @@ context:
     disqus_id: vonpupp
     twitter_id: vonpupp
     list_subscribe_url: "//albertdelafuente.us12.list-manage.com/subscribe/post?u=2078b40de4d18256fef954d6e&amp;id=bdd2d44f54"
-#    languages:
-#      fr: Français
-#      en: English
-#      es: Español
-#      pt: Portugues
 
 #meta:
 #  nodemeta: meta.yaml
