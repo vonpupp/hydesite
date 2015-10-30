@@ -30,10 +30,10 @@ def _deploy():
     _init()
     _clean()
     if DEPLOY_TYPE == 'local':
-        local('ln -sf ~/Dropbox/appdata/hydesite/private ./content')
+        local('ln -sf ~/Dropbox/appdata/hydesite/private ./content/en')
     else:
         #local('find content/ -maxdepth 1 -type l -delete')
-        local('rm -f content/private')
+        local('rm -f content/en/private')
     _hyde('-v gen -c {} -d {}'.format(HYDE_CONFIG, DEPLOY_PATH))
 
 def _run():

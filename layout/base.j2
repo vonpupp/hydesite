@@ -85,7 +85,8 @@
 	  <ul class="nav navbar-nav pull-right">
             {#{% for menu_item in site.content.child_nodes|sort(attribute='name') %}#}
             {#{% if menu_item.name != "media" %}#}
-            {% for menu_item in site.content.child_nodes|sort(attribute='name') %}
+            {% set lang_root = site.content.node_from_relative_path(resource.meta.language|default('en')) %}
+            {% for menu_item in lang_root.child_nodes|sort(attribute='name') %}
             <li{% if menu_item.full_url in resource.full_url %} class="active"{% endif %}>
               <a href="{{ menu_item.full_url }}">
                 {% if menu_item.meta.icon %}
@@ -136,7 +137,7 @@
 	  <div class="col-sm-2 text-right">
 	    <ol class="breadcrumb breadcrumb-arrow">
               {% for node in resource.node.rwalk()|reverse %}
-              {% if not loop.first %}
+              {% if not loop.first and not node.name == resource.meta.language %}
               <li{% if loop.last %} class="active"{% endif %}>
                 <a href="{{ node.full_url }}">
                   {% if node.meta.icon and loop.index == 2 %}
