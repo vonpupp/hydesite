@@ -1,0 +1,73 @@
+---
+title: "Resizing LVM on LUKS"
+created: !!timestamp '2015-11-01 10:22:00'
+image: http://xyne.archlinux.ca/etc/dyn/img/graphviz/Pacserve_Network_Topology_Example.svg
+tags:
+    - System
+---
+
+## Intro
+
+{% block excerpt %}
+{% mark excerpt %}
+
+{% endmark %}
+{% endblock %}
+
+{% syntax bash %}
+cryptsetup luksOpen /dev/sda2 cryptlvm
+
+e2fsck -f /dev/mapper/storage-home
+
+resize2fs -p /dev/mapper/storage-home 200g
+
+e2fsck -f /dev/mapper/storage-home
+
+(lvdisplay)
+lvreduce -L -15G /dev/storage/home
+(lvdisplay)
+
+[lvresize -l +100%FREE /dev/storate/root]
+
+resize2fs /dev/mapper/storage-root
+
+cryptsetup luksClose /dev/sda2 cryptlvm
+
+
+### NOT NEEDED
+
+(pvdisplay)
+pvresize --sephysicalvolumesize 218G /dev/mapper/cryptlvm
+
+/dev/mapper/cryptlvm is active and is in use
+  type:    LUKS1
+  cipher:  aes-xts-plain64
+  keysize: 256 bits
+  device:  /dev/sda2
+  offset:  4096 sectors
+  size:    487981391 sectors
+  mode:    read/write
+
+NEW_SECTORS = EXISTING_SECTORS * NEW_SIZE_IN_GB / EXISTING_SIZE_IN_GB
+487981391 * 200.7 / 232.7   = 420876085
+(487981391 - 15*1024*1024*2 = 456524111)
+
+cryptsetup -b 420876085 resize cryptlvm
+
+(cryptsetup status cryptlvm)
+
+parted /dev/sda
+
+resize
+
+{% endsyntax %}
+
+<img src="http://xyne.archlinux.ca/etc/dyn/img/graphviz/Pacserve_Request_Flow_Chart.svg">
+
+{# Local Variables: #}
+{# mode: markdown #}
+{# End: #}
+
+<!--  vim: set spell: -->
+<!--  vim: set spelllang=en: -->
+<!--  vim: set filetype=htmldjango: -->
