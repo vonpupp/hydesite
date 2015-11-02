@@ -7,8 +7,6 @@ paginator:
     size: 10
     file_pattern: page$PAGE$EXT
 ---
-{% set post_list = resource.page.posts %}
-
 {% extends "blog-list.j2" %}
 
 {# If we are rendering a year, just replace the title #}

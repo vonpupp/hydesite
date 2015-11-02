@@ -1,8 +1,21 @@
 {% extends "base.j2" %}
 
+{% set tag_dict = {} %}
+{% for tag, meta in site.tagger.tags %}
+   {% set tag_res = [] %}
+   {% for res in meta.resources %}
+      {% set lang_root = site.content.source_folder.child_folder(res.meta.language) %}
+      {% if resource.node.source_folder.is_descendant_of(lang_root) or resource.node.source_folder == lang_root %}
+      {% do tag_res.append(res) %}
+      {% endif %}
+   {% endfor %}
+   {% do tag_dict.update({meta.name: tag_res}) %}
+{% endfor %}
+
 {% block js %}
   {{ super() }}
 
+  {% if (disqus_id) != "None" %}
   <script type="text/javascript">
     var disqus_shortname = '{{ disqus_id }}';
 
@@ -13,10 +26,11 @@
       (document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
     }());
   </script>
+  {% endif %}
 {% endblock %}
 
-{% macro render_blog_listing(walker) %}
-  {% for res in walker %}
+{% macro render_blog_listing(resources) %}
+  {% for res in resources %}
     <div class="container post format-image">
       <div class="entry">
 	<header class="entry-header">
@@ -26,12 +40,14 @@
 	    <small>
 	      <i class="fa fa-folder"></i>
               {% for tag in res.meta.tags %}
-                <a href="/blog/tags/{{tag}}.html">{{tag}}</a>{% if not loop.last -%},{%- endif %}
+                <a href="/{{ resource.meta.language }}/tags/{{tag}}.html">{{tag}}</a>{% if not loop.last -%},{%- endif %}
               {% endfor %}
 	    </small>
+            {% if (disqus_id) != "None" %}
             <a href="{{ site_url }}{{ res.full_url }}#disqus_thread">
-              <i class="fa fa-comment"></i> Comments
+              <i class="fa fa-comment"></i> {{ resource.meta.l10n.comments }}
             </a>
+            {% endif %}
 	  </div>
 	</header>
 	<div class="entry-content">
@@ -43,7 +59,7 @@
           {% endif %}
           {% refer to res.relative_deploy_path as post %}
           {{ post.excerpt|markdown }}
-	  <a href="{{ res.full_url }}" class="btn btn-default white">Read More</a>
+	  <a href="{{ res.full_url }}" class="btn btn-default white">{{resource.meta.l10n.readmore}}</a>
 	</div>
       </div>
     </div>
@@ -53,7 +69,11 @@
 
 {% block content %}
   <div class="col-md-9 col-sm-7 posts">
-    {{ render_blog_listing(post_list) }}
+  {% if tag is defined %}
+    {{ render_blog_listing(tag_dict[tag.name]) }}
+  {% else %}
+    {{ render_blog_listing(resource.page.posts) }}
+  {% endif %}
 
     <div class="container pagination-bar text-center">
       <ul class="pagination">
@@ -73,21 +93,37 @@
   <aside class="col-md-3 col-sm-5 sidebar m-center">
     <!-- .widget -->
     <div class="widget">
-      <h4>Tags</h4>
+      <h4>{{ resource.meta.l10n.tags }}</h4>
+      {% set lang = 'en' %}
+      {% set previous = None %}
+      {% set current = None %}
+      {% set n = resource.node %}
+      {% set cont = False %}
+      {% for _ in range(1, 100) if cont %}
+      {% if n.source_folder == site.content.source_folder %}
+      {% set cont = True %}
+      {% else %}
+      {% set previous = current %}
+      {% set current = n %}
+      {% set n = n.parent %}
+      {% endif %}
+      {% endfor %}
+      {% if previous %}
+      {% set lang = previous.source_folder.name %}
+      {% endif %}
       <ul class="category-list flat">
-        {% set tag_dict = {} %}
-        {% for tag, meta in site.tagger.tags %}
-          {% do tag_dict.update({meta:meta.resources|count})%}
-        {% endfor %}
-        {% for meta, post_count in tag_dict|dictsort(by='value')|reverse %}
+        {% for name, resources in tag_dict|dictsort(by='value')|reverse %}
         <li>
-	  <a{% if tag == meta %} class="active"{% endif %}
-               href="/blog/tags/{{ meta.name }}">
-               {{ meta.name }}
+          {% if (resources|count) != 0 %}
+	  <a{% if tag == name %} class="active"{% endif %}
+               href="/{{ resource.meta.language }}/tags/{{ name }}.html">
+               {# {{ tag|attr("descr_" + lang)|e }}{{ tag.descr|e  }} #}
+               {{ name }}
             <span class="text-right pull-right">
-              {{(post_count) }}
+              {{(resources|count) }}
             </span>
           </a>
+          {% endif %}
         </li>
         {% endfor %}
       </ul>

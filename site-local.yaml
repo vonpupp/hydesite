@@ -64,16 +64,32 @@ sorter:
 tagger:
   sorter: time
   archives:
-    atom:
-      source: blog
-      target: blog/tags
+    atom_en:
+      source: en/blog
+      target: en/tags
       template: tag.xml.j2
       extension: xml
-    blog:
-      source: blog
-      target: blog/tags
+    blog_en:
+      source: en/blog
+      target: en/tags
       template: tag.j2
       extension: html
+    atom_es:
+      source: es/blog
+      target: es/tags
+      template: tag.xml.j2
+      extension: xml
+    blog_es:
+      source: es/blog
+      target: es/tags
+      template: tag.j2
+      extension: html
+  tags:
+    "Arch":
+      descr: "Arch"
+    "System":
+      descr_en: "System"
+      descr_es: "Sistemas"
 
 #urlcleaner:
 #  index_file_names:
@@ -99,6 +115,9 @@ context:
       en: English
       es: Español
       pt: Portugues
+
+#meta:
+#  charset: utf-8
 
 #meta:
 #  nodemeta: meta.yaml

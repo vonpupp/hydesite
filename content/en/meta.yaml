@@ -4,9 +4,15 @@ default_block: blog
 language: en
 
 l10n:
-  otherlinks: "Other stuff"
+  comments: "Comments"
   translations: "Also available in"
-  comments: "View or add a new comment (with Disqus)"
-  attachments: "Attachments"
-  tags: "Filed under"
-  share: "Share this article"
+  tags: "Tags"
+  share: "Share this post"
+  readmore: "Read More"
+  posts_with_tag: "Posts with tag:"
+  get_notified_next_post: "Get notified of my next blog post"
+  enter_your_email: "Enter your email address"
+  subscribe: "Subscribe"
+
+# vim: set spell:
+# vim: set spelllang=en:
