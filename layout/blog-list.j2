@@ -116,7 +116,7 @@
         <li>
           {% if (resources|count) != 0 %}
 	  <a{% if tag == name %} class="active"{% endif %}
-               href="/{{ resource.meta.language }}/tags/{{ name }}.html">
+               href="/{{ lang }}/tags/{{ name }}.html">
                {# {{ tag|attr("descr_" + lang)|e }}{{ tag.descr|e  }} #}
                {{ name }}
             <span class="text-right pull-right">

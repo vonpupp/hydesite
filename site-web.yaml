@@ -61,10 +61,12 @@ context:
     author:
       name: Albert De La Fuente
       url: "http://www.albertdelafuente.com"
-    google_analytics_id: #UA-25393581-1
+    google_analytics_id: UA-27656036-2
     disqus_id: vonpupp
     twitter_id: vonpupp
     list_subscribe_url: "//albertdelafuente.us12.list-manage.com/subscribe/post?u=2078b40de4d18256fef954d6e&amp;id=bdd2d44f54"
+    addthis_id: "ra-5626d7f3b1c34ff8"
+    mailchimp_goal_id: #"53ceb9eb499d62f6ee37c8167"
 
 #meta:
 #  nodemeta: meta.yaml

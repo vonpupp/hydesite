@@ -3,12 +3,15 @@
 {% block js %}
   {{ super () }}
 
+  {% if addthis_id %}
+  <!-- Go to www.addthis.com/dashboard to customize your tools -->
   <script type="text/javascript"
-          src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5626d7f3b1c34ff8"
-          async="async">
+    src="//s7.addthis.com/js/300/addthis_widget.js#pubid={{ addthis_id }}"
+    async="async">
   </script>
+  {% endif %}
 
-  {% if (disqus_id) != "None" %}
+  {% if disqus_id %}
   <script type="text/javascript">
     var disqus_shortname = '{{ disqus_id }}';
 
@@ -21,7 +24,9 @@
   </script>
   {% endif %}
 
+  {% if twitter_id %}
   <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+  {% endif %}
 {% endblock %}
 
 {% block container %}
@@ -35,16 +40,20 @@
             <a href="/blog/tags/{{tag}}.html">{{tag}}</a>{% if not loop.last -%},{%- endif %}
           {% endfor %}
         </small>
-        {% if (disqus_id) != "None" %}
+        {% if disqus_id %}
         <a href="{{ site_url }}{{ resource.full_url }}#disqus_thread">
-          <i class="fa fa-comment"></i> Comments
+          <i class="fa fa-comment"></i> {{ resource.meta.l10n.comments }}
         </a>
         {% endif %}
         <span>
-          <i class="fa fa-share"></i> Share this post
+          <i class="fa fa-user-plus"></i> {{ resource.meta.l10n.follow_me }}
         </span>
-        <!-- Go to www.addthis.com/dashboard to customize your tools -->
-        <div class="addthis_sharing_toolbox"></div>
+        {% if addthis_id %}
+        <div class="addthis_horizontal_follow_toolbox"
+             style="margin-top: -25px;
+             margin-left: -25px;">
+        </div>
+        {% endif %}
       </div>
     </header>
     <div class="entry-content padding-bottom">
@@ -60,15 +69,15 @@
         <div class="col-sm-8">
           <h3>
             <a href="/services/development">
-              Check out <strong>the Services</strong> section!
+              {{ resource.meta.l10n.checkout_services_title }}
             </a>
           </h3>
           <p>
-            If you need development services... Interested?
+            {{ resource.meta.l10n.checkout_services_paragraph }}
             <br>
             <br>
             <a role="button" class="btn btn-default"
-               href="/services/development">Contact</a>
+               href="/services/development">{{ resource.meta.l10n.contact }}</a>
           </p>
         </div>
         <div class="col-sm-4 text-center">
@@ -101,7 +110,7 @@
     </div>
   </div>
 
-  {% if (disqus_id) != "None" %}
+  {% if disqus_id %}
   <div class="container" id="disqus_thread"></div>
 
   <script type="text/javascript">
@@ -118,26 +127,8 @@
       Disqus.</a></noscript>
   {% endif %}
 
+  {% if addthis_id %}
   <div class="addthis_recommended_horizontal"></div>
+  {% endif %}
 
-  <div class="container padding-top">
-    <nav class="nav-single clearfix">
-      {% if resource.next_by_time %}
-        <div class="nav-previous text-left">
-          <a href="{{ resource.next_by_time.full_url }}">
-	    <small>Previous Post</small>
-	    <span>{{ resource.next_by_time.meta.title }}</span>
-          </a>
-        </div>
-      {% endif %}
-      {% if resource.prev_by_time %}
-        <div class="nav-next text-right">
-          <a href="{{ resource.prev_by_time.full_url }}">
-	    <small>Next Post</small>
-	    <span>{{ resource.prev_by_time.meta.title }}</span>
-          </a>
-        </div>
-      {% endif %}
-    </nav>
-  </div>
 {% endblock %}

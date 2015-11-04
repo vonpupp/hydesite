@@ -39,6 +39,7 @@
     {% endblock %}
 
     {% if resource.meta.created %}
+    {% if twitter_id %}
     <meta property="og:title" content="{{resource.meta.title}}">
     <meta property="og:description" content="{{self.excerpt()|markdown|striptags|truncate(200, end="…")|forceescape}}">
     <meta property="og:image" content="{{site_url}}{{resource.meta.image}}">
@@ -52,6 +53,8 @@
                                               self.excerpt()|markdown|striptags
                                               |truncate(200, end="…")|forceescape }}"/>
     {% endif %}
+    {% endif %}
+    {% if google_analytics_id %}
     <script type="text/javascript">
       (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
       (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
@@ -61,6 +64,7 @@
       ga('create', '{{ google_analytics_id }}', 'auto', {'allowLinker': true});
       ga('send', 'pageview');
     </script>
+    {% endif %}
     {% endblock %}
   </head>
   <body class="archive">
@@ -109,6 +113,18 @@
     </li> -->
           </ul>
 	</div>
+  {% if resource.translations %}
+  <div class="lf-link">
+      <p>{{ resource.meta.l10n.translations|e }}</p>
+      <ul>
+	{% for translation in resource.translations %}
+	<li><a href="{{ content_url(translation.url) }}">
+	    {{ languages[translation.meta.language] }}
+	</a></li>
+	{% endfor %}
+      </ul>
+  </div>
+  {% endif %}
       </nav>
     </header>
     <!-- /.header -->
@@ -170,6 +186,22 @@
 	<hr />
 
 	<div class="row">
+	  <div class="col-sm-8">
+	    <p class="copyright">
+              This work is licensed under a
+              <a rel="license"
+                 href="//creativecommons.org/licenses/by-sa/3.0/deed.en_US">Creative
+                Commons Attribution-ShareAlike 3.0 Unported License</a>.
+            </p>
+	  </div>
+	  <div class="col-sm-4 text-right">
+	    <nav>
+	      Follow Me
+          <div class="addthis_horizontal_follow_toolbox"
+               style="float: right;">
+          </div>
+	    </nav>
+	  </div>
 	</div>
       </div>
     </footer>
@@ -188,14 +220,16 @@
     <script src="/media/js/custom.js"></script>
     <script src="{{ media_url('js/bootstrap-tab-bookmark.js') }}"></script>
 
+    {% if mailchimp_goal_id %}
     <script type="text/javascript">
-	var $mcGoal = {'settings':{'uuid':'53ceb9eb499d62f6ee37c8167','dc':'us7'}};
+    var $mcGoal = {'settings':{'uuid':"{{ mailchimp_goal_id }}",'dc':'us7'}};
 	(function() {
 		 var sp = document.createElement('script'); sp.type = 'text/javascript'; sp.async = true; sp.defer = true;
 		sp.src = ('https:' == document.location.protocol ? 'https://s3.amazonaws.com/downloads.mailchimp.com' : 'http://downloads.mailchimp.com') + '/js/goal.min.js';
 		var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(sp, s);
 	})();
     </script>
+    {% endif %}
 
     {% endblock %}
 
