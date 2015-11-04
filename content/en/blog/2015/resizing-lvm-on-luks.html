@@ -24,10 +24,12 @@ resize2fs -p /dev/mapper/storage-home 200g
 e2fsck -f /dev/mapper/storage-home
 
 (lvdisplay)
-lvreduce -L -15G /dev/storage/home
+lvreduce -L -15.68G /dev/storage/home
 (lvdisplay)
 
 [lvresize -l +100%FREE /dev/storate/root]
+
+e2fsck -f /dev/mapper/storage-root
 
 resize2fs /dev/mapper/storage-root
 

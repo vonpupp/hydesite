@@ -1,1 +1,24 @@
-en/blog/index.html
+---
+extends: false
+default_block: article
+description: Language selection page
+paginator:
+    sorter: time
+    size: 10
+    file_pattern: page$PAGE$EXT
+---
+
+Redirecting...
+
+{# {% for code, lang in languages %}        #}
+{#   * [{{lang}}]({{ content_url(code) }})  #}
+{# {% endfor %}                             #}
+
+<script>
+{% for code, lang in languages %}
+  l = 'en';
+  if (navigator.language.split(/-/)[0] === "{{ code }}")
+     l = "{{ content_url(code) }}";
+{%- endfor %}
+location.href = l;
+</script>
