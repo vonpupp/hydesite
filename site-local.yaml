@@ -112,6 +112,8 @@ context:
     disqus_id: #vonpupp
     twitter_id: #vonpupp
     list_subscribe_url: #"//albertdelafuente.us12.list-manage.com/subscribe/post?u=2078b40de4d18256fef954d6e&amp;id=bdd2d44f54"
+    addthis_id: #ra-5626d7f3b1c34ff8
+    mailchimp_goal_id: #
     languages:
       fr: Français
       en: English
