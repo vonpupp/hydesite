@@ -1,5 +1,5 @@
 ---
-title: "Resizing LVM on LUKS"
+title: "Redimensionando partições LVM em LUKS"
 created: !!timestamp '2015-11-01 10:22:00'
 image: http://i.stack.imgur.com/WAWbB.jpg
 uuid: 7ef1dd49-92be-4aea-b96f-f91ab1b84f02
@@ -25,12 +25,10 @@ resize2fs -p /dev/mapper/storage-home 200g
 e2fsck -f /dev/mapper/storage-home
 
 (lvdisplay)
-lvreduce -L -15.68G /dev/storage/home
+lvreduce -L -15G /dev/storage/home
 (lvdisplay)
 
 [lvresize -l +100%FREE /dev/storate/root]
-
-e2fsck -f /dev/mapper/storage-root
 
 resize2fs /dev/mapper/storage-root
 
@@ -72,5 +70,5 @@ resize
 {# End: #}
 
 <!--  vim: set spell: -->
-<!--  vim: set spelllang=en: -->
-<!--  vim: set filetype=htmldjango: -->
+<!--  vim: set spelllang=pt: -->
+<!--  vim: set filetype=markdown: -->

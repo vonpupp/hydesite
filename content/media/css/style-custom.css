@@ -13,6 +13,15 @@ body {
     display: inline;
 }
 
+/* The navbar for the languages */
+.navbar-lang {
+    line-height: 25px;
+}
+
+.navbar-lang > li > a {
+    line-height: 25px;
+}
+
 /* Used in blog listing for blog image */
 .blog-title-image {
     width: 100%;

@@ -18,7 +18,7 @@
     <link href="/media/css/font-awesome.min.css" rel="stylesheet">
     <link href="/media/css/animate.css" rel="stylesheet">
     <link href="/media/css/style.css" rel="stylesheet">
-    <link href="/media/css/style-jd.css" rel="stylesheet">
+    <link href="/media/css/style-custom.css" rel="stylesheet">
     <link href="/media/css/pygments.css" rel="stylesheet">
     <link href="{{ media_url('css/flag-icon.min.css') }}" rel="stylesheet">
     <link href="//fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
@@ -113,10 +113,11 @@
     </li> -->
           </ul>
 	</div>
+
   {% if resource.translations %}
-  <div class="lf-link">
-      <p>{{ resource.meta.l10n.translations|e }}</p>
-      <ul>
+  <div id="langnavbar" class="nav navbar-nav pull-right navbar-lang navbar-collapse collapse">
+      {{ resource.meta.l10n.translations|e }}
+	  <ul class="nav navbar-nav pull-right navbar-lang">
 	{% for translation in resource.translations %}
 	<li><a href="{{ content_url(translation.url) }}">
 	    {{ languages[translation.meta.language] }}
@@ -125,6 +126,7 @@
       </ul>
   </div>
   {% endif %}
+
       </nav>
     </header>
     <!-- /.header -->
