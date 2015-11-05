@@ -1,0 +1,23 @@
+extends: base.j2
+default_block: blog
+
+language: pt
+lc: pt_BR
+
+l10n:
+  comments: "Comentários"
+  translations: "Também disponível em"
+  tags: "Categorias"
+  share: "Compartir este artículo"
+  readmore: "Ler Más"
+  posts_with_tag: "Artigos com categoria:"
+  get_notified_next_post: "Seja notificado do meu próximo artigo"
+  enter_your_email: "Digite seu email"
+  subscribe: "Assinar"
+  share_this_post: "Compartilhar este articulo"
+  checkout_services_title: "Veja a seção de <strong>Serviços</strong>!"
+  checkout_services_paragraph: "Se precisa serviços de desenvolvimento... Interessado?<br><br>"
+  contact: "Contato"
+
+# vim: set spell:
+# vim: set spelllang=pt:

@@ -2,11 +2,22 @@ extends: base.j2
 default_block: blog
 
 language: es
+lc: es_ES
 
 l10n:
-  otherlinks: "Other stuff"
-  translations: "Also available in"
-  comments: "View or add a new comment (with Disqus)"
-  attachments: "Attachments"
-  tags: "Filed under"
-  share: "Share this article"
+  comments: "Comentarios"
+  translations: "También disponible en"
+  tags: "Categorías"
+  share: "Compartir este artículo"
+  readmore: "Leer Más"
+  posts_with_tag: "Artículos con categoría:"
+  get_notified_next_post: "Sea notificado de mi próximo artículo"
+  enter_your_email: "Introduzca su correo electrónico"
+  subscribe: "Subscribirse"
+  share_this_post: "Compartir este articulo"
+  checkout_services_title: "Vea la seccion de <strong>Servicios</strong>!"
+  checkout_services_paragraph: "Si necesita servicios de desarrollo... Interesado?<br><br>"
+  contact: "Contacto"
+
+# vim: set spell:
+# vim: set spelllang=es:

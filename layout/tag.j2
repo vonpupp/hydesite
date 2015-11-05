@@ -1,11 +1,9 @@
-{% set post_list = walker() %}
-
 {% extends "blog-list.j2" %}
 
 {% block rss %}
-<link rel="alternate" type="application/rss+xml" href="/blog/tags/{{tag}}.xml" title="jd:/dev/blog – {{tag}}">
+<link rel="alternate" type="application/rss+xml" href="/{{ resource.meta.language }}/tags/{{tag}}.xml" title="jd:/dev/blog – {{tag}}">
 {% endblock %}
 
-{% block title %}Posts with tag {{tag}}{% endblock %}
+{% block title %}{{ resource.meta.l10n.posts_with_tag }} {{tag}}{% endblock %}
 
-{% block page_title %}Posts with tag <strong>{{tag}}</strong>{% endblock %}
+{% block page_title %}{{ resource.meta.l10n.posts_with_tag }} <strong>{{tag}}</strong>{% endblock %}

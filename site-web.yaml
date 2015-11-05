@@ -35,16 +35,32 @@ sorter:
 tagger:
   sorter: time
   archives:
-    atom:
-      source: blog
-      target: blog/tags
+    atom_en:
+      source: en/blog
+      target: en/tags
       template: tag.xml.j2
       extension: xml
-    blog:
-      source: blog
-      target: blog/tags
+    blog_en:
+      source: en/blog
+      target: en/tags
       template: tag.j2
       extension: html
+    atom_es:
+      source: es/blog
+      target: es/tags
+      template: tag.xml.j2
+      extension: xml
+    blog_es:
+      source: es/blog
+      target: es/tags
+      template: tag.j2
+      extension: html
+  tags:
+    "Arch":
+      descr: "Arch"
+    "System":
+      descr_en: "System"
+      descr_es: "Sistemas"
 
 #urlcleaner:
 #  index_file_names:
@@ -59,12 +75,25 @@ context:
     site_title: Albert De La Fuente
     blog_title: albert:/dev/blog
     author:
-      name: Albert De La Fuente
-      url: "http://www.albertdelafuente.com"
-    google_analytics_id: #UA-25393581-1
+        name: Albert De La Fuente
+        url: "http://www.albertdelafuente.com"
+    google_analytics_id: UA-27656036-2
     disqus_id: vonpupp
     twitter_id: vonpupp
     list_subscribe_url: "//albertdelafuente.us12.list-manage.com/subscribe/post?u=2078b40de4d18256fef954d6e&amp;id=bdd2d44f54"
+    addthis_id: ra-5626d7f3b1c34ff8
+    mailchimp_goal_id: #
+    languages:
+      fr: Français
+      en: English
+      es: Español
+      pt: Portugues
+
+meta:
+  encoding: utf-8
+  nodemeta: meta.yaml
+#  created: !!timestamp 2012-08-02 14:04:01
+  lc: 'en_US'
 
 #meta:
 #  nodemeta: meta.yaml

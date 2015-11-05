@@ -2,7 +2,7 @@
 content/media/js/reveal.js
 
 # Private stuff
-content/private
+content/en/private
 
 # Env
 .env
@@ -17,8 +17,9 @@ deploy
 .hyde_deps
 
 # Tags
-content/en/blog/tags
-content/es/blog/tags
+content/en/tags
+content/es/tags
+content/pt/tags
 
 content/media/images/talks/*.png
 stork.cfg
