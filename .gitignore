@@ -19,6 +19,7 @@ deploy
 # Tags
 content/en/tags
 content/es/tags
+content/pt/tags
 
 content/media/images/talks/*.png
 stork.cfg
