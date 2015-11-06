@@ -39,8 +39,9 @@
 	    <small><i class="fa fa-calendar"></i>{{res.meta.created.strftime('%A %d %B %Y') }}</small>
 	    <small>
 	      <i class="fa fa-folder"></i>
-              {% for tag in res.meta.tags %}
-                <a href="/{{ resource.meta.language }}/tags/{{tag}}.html">{{tag}}</a>{% if not loop.last -%},{%- endif %}
+            {% set lang = resource.meta.language %}
+            {% for tag in res.meta.tags %}
+              <a href="{{ broser_lang }}/blog/tags/{{ locale_tag }}.html">{{ site.tagger.tags[tag]|attr("descr_" + lang)|e }}{{ site.tagger.tags[tag].descr|e }}</a>
               {% endfor %}
 	    </small>
             {% if (disqus_id) != "None" %}
@@ -111,15 +112,17 @@
       {% if previous %}
       {% set lang = previous.source_folder.name %}
       {% endif %}
+      {% set browser_lang = resource.meta.language %}
       <ul class="category-list flat">
         {% for name, resources in tag_dict|dictsort(by='value')|reverse %}
         <li>
           {% if (resources|count) != 0 %}
 	  <a{% if tag == name %} class="active"{% endif %}
-               href="/{{ lang }}/tags/{{ name }}.html">
+               href="/{{ browser_lang }}/tags/{{ name }}.html">
                {# {{ tag|attr("descr_" + lang)|e }}{{ tag.descr|e  }} #}
-               {{ name }}
-            <span class="text-right pull-right">
+               {# {{ site.tagger.tags[name]|attr("descr_" + lang)|e }}{{ site.tagger.tags[name].descr|e }}#}
+               {{ site.tagger.tags[name]|attr("descr_" + browser_lang)|e }}{{ site.tagger.tags[name].descr|e }}
+               <span class="text-right pull-right">
               {{(resources|count) }}
             </span>
           </a>
@@ -132,3 +135,5 @@
   </aside>
 
 {% endblock %}
+
+<!--  vim: set filetype=htmldjango: -->

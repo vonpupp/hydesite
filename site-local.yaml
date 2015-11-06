@@ -134,3 +134,17 @@ meta:
 #  language: en
 #  analytics: #UA-21482482-4
 #  keywords: "archlinux, python, network"
+
+tagger:
+  sorter: time
+  tags:
+    "Arch":
+      descr: "Arch"
+    "Python":
+      descr: "Python"
+    "System":
+      descr_en: "System"
+      descr_es: "Sistema"
+      descr_pt: "Sistema"
+    "Private":
+      descr: "Private"
