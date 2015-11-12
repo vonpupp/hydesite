@@ -195,3 +195,19 @@ h2,
 .jumbotron {
     height: auto;
 }
+
+#search-form {
+  display: none;
+}
+
+@media (max-width: 767px) {
+  .custom-navbar {
+    text-align: right;
+  }
+  .custom-navbar #search-button {
+    float: none;
+    border: none;
+    right: 0;
+    text-align: right;
+  }
+}

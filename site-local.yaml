@@ -140,6 +140,8 @@ tagger:
   tags:
     "Arch":
       descr: "Arch"
+    "Hyde":
+      descr: "Hyde"
     "Python":
       descr: "Python"
     "System":
