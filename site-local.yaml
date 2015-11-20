@@ -1,3 +1,4 @@
+private: true
 base_url: /
 simple_copy:
   - media/*
