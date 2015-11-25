@@ -6,6 +6,7 @@ import fabric.contrib.project as project
 #GIT_BRANCH = local("git branch | grep '^*' | cut -d' ' -f2", capture=True)
 GIT_BRANCH = local('git rev-parse --abbrev-ref HEAD', capture=True)
 
+PORT = 8000
 ROOT_PATH = os.path.abspath(os.path.dirname(__file__))
 DEPLOY_FOLDER = None
 DEPLOY_PATH = None
@@ -39,7 +40,7 @@ def _deploy():
 
 def _run():
     _deploy()
-    local('cd {} && python -m SimpleHTTPServer'.format(DEPLOY_PATH))
+    local('cd {} && python2 -m SimpleHTTPServer {}'.format(DEPLOY_PATH, PORT))
 
 @task
 def clean_web():

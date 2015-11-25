@@ -15,7 +15,7 @@
 {% block js %}
   {{ super() }}
 
-  {% if (disqus_id) != "None" %}
+  {#  {% if (disqus_id) != "None" %}
   <script type="text/javascript">
     var disqus_shortname = '{{ disqus_id }}';
 
@@ -26,7 +26,7 @@
       (document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
     }());
   </script>
-  {% endif %}
+  {% endif %} #}
 {% endblock %}
 
 {% macro render_blog_listing(resources) %}
@@ -41,7 +41,9 @@
 	      <i class="fa fa-folder"></i>
             {% set lang = resource.meta.language %}
             {% for tag in res.meta.tags %}
-              <a href="{{ broser_lang }}/blog/tags/{{ locale_tag }}.html">{{ site.tagger.tags[tag]|attr("descr_" + lang)|e }}{{ site.tagger.tags[tag].descr|e }}</a>
+              {% set tag_url = lang + content_url('tags/'~tag~'.html') %}
+              <a href="/{{ tag_url }}">
+              {{ site.tagger.tags[tag]|attr("descr_" + lang)|e }}{{ site.tagger.tags[tag].descr|e }}</a>
               {% endfor %}
 	    </small>
             {% if (disqus_id) != "None" %}

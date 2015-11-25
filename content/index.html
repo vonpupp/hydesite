@@ -15,10 +15,9 @@ Redirecting...
 {# {% endfor %}                             #}
 
 <script>
+l = 'en';
 {% for code, lang in languages %}
-  l = 'en';
-  if (navigator.language.split(/-/)[0] === "{{ code }}")
-     l = "{{ content_url(code) }}";
+if (navigator.language.split(/-/)[0] === "{{ code }}")  l = "{{ content_url(code) }}";
 {%- endfor %}
-location.href = l;
+location.href = l + '/blog';
 </script>

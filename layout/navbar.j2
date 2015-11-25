@@ -42,13 +42,15 @@
     </li> -->
           </ul>
 
-      <form class="navbar-form navbar-right custom-navbar" role="search">
+      <form class="navbar-form navbar-right custom-navbar" method="get" role="search" action="//www.google.com/search">
         <button id="search-button" class="btn btn-default"><span class="fa fa-search"></span>
 
         </button>
         <div id="search-form" class="form-group">
           <div class="input-group">
             <input type="text" class="form-control" placeholder="Search"><span id="search-icon" class="input-group-addon"><span class="fa fa-search"></span></span>
+			<input type="hidden" name="hl" value="{{ resource.meta.language }}">
+			<input type="hidden" name="q"  value="site:albertdelafuente.com/{{ resource.meta.language }}/*">
           </div>
         </div>
       </form>

@@ -1,3 +1,4 @@
+offline: true
 base_url: /
 simple_copy:
   - media/*
@@ -19,6 +20,8 @@ plugins:
 
 syntax:
   use_figure: False
+  options:
+    linenos: table
 
 sorter:
   name:
@@ -89,9 +92,26 @@ tagger:
   tags:
     "Arch":
       descr: "Arch"
+    "Apps":
+      descr: "Apps"
+    "Bible":
+      descr_en: "Bible"
+      descr_es: "Biblia"
+      descr_pt: "Biblia"
+    "Hyde":
+      descr: "Hyde"
+    "Python":
+      descr: "Python"
     "System":
       descr_en: "System"
-      descr_es: "Sistemas"
+      descr_es: "Sistema"
+      descr_pt: "Sistema"
+    "Private":
+      descr: "Private"
+    "Git":
+      descr: "Git"
+    "CUI":
+      descr: "CUI"
 
 #urlcleaner:
 #  index_file_names:
@@ -134,19 +154,3 @@ meta:
 #  language: en
 #  analytics: #UA-21482482-4
 #  keywords: "archlinux, python, network"
-
-tagger:
-  sorter: time
-  tags:
-    "Arch":
-      descr: "Arch"
-    "Hyde":
-      descr: "Hyde"
-    "Python":
-      descr: "Python"
-    "System":
-      descr_en: "System"
-      descr_es: "Sistema"
-      descr_pt: "Sistema"
-    "Private":
-      descr: "Private"
