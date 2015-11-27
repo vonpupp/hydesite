@@ -43,9 +43,8 @@ in this sense their site will basically depends on a HTTP server and it is
 easier to scale to the demands.
 
 I would say that the most popular static website generator nowadays is probably
-Jekyll due to Github's integration, however it is written in Ruby. However I
-prefer a Python stack whenever possible, since I am more familiar with; this is
-why I chose [Hyde].
+Jekyll due to Github's integration. However I prefer a Python stack whenever
+possible, since I am more familiar with; this is why I have chosen [Hyde].
 
 Once you have Hyde installed the workflow is quite simple, everytime you modify
 your `content` you need to `generate` the site. This is somehow analogous to
@@ -71,7 +70,9 @@ Fabric file to automate the building process. This is similar to using
 Makefiles. For the sake of simplicity I bundled all the files within a single
 repository. I thought about splitting the content from the template itself, and
 I believe this would be nice, however right now I am still in doubt what is the
-right way, so I will keep it simple.
+right way and time, so I won't right now and I will try to keep it as simple as
+possible. Use the following steps to install Hyde and the dependencies. The
+snippet is self explanatory.
 
 {% syntax bash %}
 # Clone the repository
@@ -99,11 +100,11 @@ tied these two into a single task in a Fabfile.
 
 {% syntax bash %}
 # Execute the fabric task
-fab run_local
+fab run
 {% endsyntax %}
 
 This will generate and run a local webserver. To access your
-brand new Hyde site just type: `http://localhost:8000`.
+brand new Hyde site just type: `http://localhost:8123`.
 
 ## Conclusions
 

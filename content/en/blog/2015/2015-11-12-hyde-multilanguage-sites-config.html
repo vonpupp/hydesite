@@ -73,38 +73,41 @@ $ tree -d .
 └── layout
 {% endsyntax %}
 
-### The `Content` folder
+* The `Content` folder:
 
-This folder also contains the `media` folder which will hold the CSS, images and
-Javascript files. It also contain one folder per language.  These type of
-folders will be explain in the next section.
+	This folder also contains the `media` folder which will hold the CSS, images and
+	Javascript files. It also contain one folder per language.  These type of
+	folders will be explain in the next section.
 
-The main `index.html` only runs a script to detect the browser language an
-redirect to the appropriate language version of the website. If the browser
-language does not match an existing language it will fallback to the default
-which is English.
+	The main `index.html` only runs a script to detect the browser language an
+	redirect to the appropriate language version of the website. If the browser
+	language does not match an existing language it will fallback to the default
+	which is English.
 
-### The `Language` folders
 
-As I said there is a language folder for each language you want to use. For
-simplicity I used only two letters language coding standard, `en` and `fr` in
-this example. Within each language folder is the structure of the website itself
-(the `sections`).
+* The `Language` folders
 
-### The `Sections` folders
+	As I said there is a language folder for each language you want to use. For
+	simplicity I used only two letters language coding standard, `en` and `fr` in
+	this example. Within each language folder is the structure of the website itself
+	(the `sections`).
 
-Within each language you will find the structure of the website where each section is
-a folder.
+
+* The `Sections` folders
+
+	Within each language you will find the structure of the website where each section is
+	a folder.
 
 ## Content
 
 Both the language folder and the sections must contain a `meta.yaml` that
 describe that particular part of the website.
 
-### The `language` metafile
+#### The `language` metafile
 
 Each `language` folder must contain a `meta.yaml` file with some basic content
 (YMMV). This is an example of the `en` meta.yaml file.
+
 {% syntax yaml %}
 extends: base.j2
 default_block: blog
@@ -124,10 +127,11 @@ name of the `language` folder. The `localization` (or `l10n` for short), which
 contains the `strings` that are common to the template but need to be
 translated.
 
-### The `section` metafile
+#### The `section` metafile
 
 In a similar way, each section must contain a `meta.yaml` file. Here is an
 example of the `blog` section.
+
 {% syntax yaml %}
 title: Blog
 extends: blog.j2
@@ -138,7 +142,7 @@ The idea is
 similar, however this file only contains:
 
 - The `title` of that section. This will appear on the menu when it is
-  dynamically parsed
+dynamically parsed
 - From which Jinja template `extends` from (blog.j2),
 - `listable` in case the section must not appear on the menu
 
@@ -147,7 +151,7 @@ each section or split the localization another level or any other information
 used by that section. The limit is your imagination.
 
 
-## The `site.yaml` file
+#### The `site.yaml` file
 
 Now that you are familiar with the folder structure and files for each language
 we will see how to link everything together on the `site.yaml` file. You can
@@ -200,43 +204,42 @@ Of course there are other parts on the file but this post focus only on the
 multi-language features.
 
 
-## The metadata of a post
+#### The metadata of a post
 
 Each post must be within a `language` folder and a `section` folder. If a
 particular post has a translation, then it should have a unique identifier that
 somehow links those posts. This is what the `uuid` field is for. Here is an
 example
 
+{% syntax %}
 {% raw %}
-{% set tag_dict = {} %}
-{% for tag, meta in site.tagger.tags %}
-   {% set tag_res = [] %}
-   {% for res in meta.resources %}
-      {% set lang_root = site.content.source_folder.child_folder(res.meta.language) %}
-      {% if resource.node.source_folder.is_descendant_of(lang_root) or resource.node.source_folder == lang_root %}
-      {% do tag_res.append(res) %}
-      {% endif %}
-   {% endfor %}
-   {% do tag_dict.update({meta.name: tag_res}) %}
-{% endfor %}
+---
+title: A Happy Post
+created: !!timestamp '2011-02-01 10:00:00'
+uuid: 7ef1dd49-92be-4aea-b96f-f91ab1b84f06
+tags:
+    - happy
+    - thoughts
+---
+
+{% mark image -%}
+
+![Airport]([[!!img/airport.png]])
+
+{%- endmark %}
+
+{% mark excerpt -%}
+
+Lady Malvern was a hearty, happy, healthy, overpowering sort of dashed female,
+not so very tall but making up for it by measuring about six feet from the
+O.P. to the Prompt Side.
+
+{%- endmark %}
+
+She fitted into my biggest arm-chair as if it had
+been built round her by someone who knew they were wearing arm-chairs tight
 {% endraw %}
-
-{% syntax raw %}
-{% set tag_dict = {} %}
-{% for tag, meta in site.tagger.tags %}
-   {% set tag_res = [] %}
-   {% for res in meta.resources %}
-      {% set lang_root = site.content.source_folder.child_folder(res.meta.language) %}
-      {% if resource.node.source_folder.is_descendant_of(lang_root) or resource.node.source_folder == lang_root %}
-      {% do tag_res.append(res) %}
-      {% endif %}
-   {% endfor %}
-   {% do tag_dict.update({meta.name: tag_res}) %}
-{% endfor %}
 {% endsyntax %}
-
-<script src="http://gist-it.sudarmuthu.com/https://github.com/vonpupp/hyde-bootstrap-template/blob/feature/part1/content/en/blog/2015-11-happy-post.html?footer=0&slice=1:27">
-</script>
 
 Note the `uuid` field mentioned before, as the tags. The tags as I already said
 can also be translated if necessary.
@@ -244,17 +247,68 @@ can also be translated if necessary.
 
 ## Tagging
 
-Here is an interesting snippet pattern kindly contributed by [Lakshmi]. The
+Here is an interesting snippet pattern kindly contributed by [@laksmivyas]. The
 first part creates a dict of the items (i.e: posts or pages) within a language.
 
-<script src="http://gist-it.sudarmuthu.com/https://github.com/vonpupp/hyde-bootstrap-template/blob/feature/part1/layout/tagged_posts.j2?footer=0&slice=3:14">
-</script>
+{% syntax %}
+{% raw %}
+{% set tag_dict = {} %}
+{% for tag, meta in site.tagger.tags %}
+    {% set tag_res = [] %}
+    {% for res in meta.resources %}
+        {% set lang_root = site.content.source_folder.child_folder(res.meta.language) %}
+        {% if resource.node.source_folder.is_descendant_of(lang_root) or resource.node.source_folder == lang_root %}
+            {% do tag_res.append(res) %}
+        {% endif %}
+    {% endfor %}
+    {% do tag_dict.update({meta.name: tag_res}) %}
+{% endfor %}
+{% endraw %}
+{% endsyntax %}
 
 Then to query all the posts tagged as 'system' is as simple as
 `tag_dict['system']`. To list those items is as simple as:
 
-<script src="http://gist-it.sudarmuthu.com/https://github.com/vonpupp/hyde-bootstrap-template/blob/feature/part1/layout/tagged_posts.j2?footer=0&slice=16:43">
-</script>
+{% syntax %}
+{% raw %}
+<section class="archives">
+    {% set lang = resource.meta.language %}
+    <h1>
+        {{ site.tagger.tags[tag.name]|attr("descr_" + lang)|e }}{{ site.tagger.tags[tag.name].descr|e }}
+    </h1>
+    {% for resource in tag_dict[tag.name] -%}
+        <div class="row-fluid">
+            <div class="span2">
+                <small>
+                    <time datetime="{{ resource.meta.created.strftime('%Y-%m-%d') }}">
+                        {{ resource.meta.created.strftime('%a, %d %b %Y') }}
+                    </time>
+                </small>
+            </div>
+            <div class="span7">
+                <strong>
+                    <a href="{{ content_url(resource.url) }}">{{ resource.meta.title }}</a>
+                </strong>
+            </div>
+            <div class="span3">
+                <div class="pull-right">
+                    {% if resource.meta.tags %}
+                        {% for tag in resource.meta.tags %}
+                            {% set tag_url = lang + content_url('tags/'~tag~'.html') %}
+                            <span class="badge badge-inverse">
+                                <a href="/{{ tag_url }}">
+                                    {{ site.tagger.tags[tag]|attr("descr_" + lang)|e }}{{ site.tagger.tags[tag].descr|e }}
+                                </a>
+                            </span>
+                        {% endfor %}
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    {%- endfor %}
+</section>
+{% endraw %}
+{% endsyntax %}
 
 As you can see the `h1` tags hold the tag title, which can be obtained as `
 site.tagger.tags[tag.name]|attr("descr_" + lang)|e`. This first part uses the
@@ -266,8 +320,24 @@ back to the standard `descr` translation.
 
 If you want to show the languages available for a specific post is as simple as:
 
-<script src="http://gist-it.sudarmuthu.com/https://github.com/vonpupp/hyde-bootstrap-template/blob/feature/part1/layout/topbar.j2?footer=0&slice=27:40">
-</script>
+{% syntax %}
+{% raw %}
+{% if resource.translations %}
+    <div id="langnavbar" class="nav navbar-nav pull-right navbar-lang navbar-collapse collapse">
+        <ul class="nav navbar-nav pull-right navbar-lang">
+            <li>
+                {{ resource.meta.l10n.translations|e }}:
+            </li>
+            {% for translation in resource.translations %}
+                <li>
+                    <a href="{{ content_url(translation.url) }}">{{ languages[translation.meta.language] }}</a>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+{% endif %}
+{% endraw %}
+{% endsyntax %}
 
 The first `li` item is the string 'This post is also available in' itself,
 which by the way, should also be translated and therefore it has been pulled to
@@ -277,8 +347,25 @@ the `meta.yaml` at the `language` level (`{{ resource.meta.l10n.translations|e }
 
 The menu of course it is also multi-language. It is dynamically parsed by the following macro:
 
-<script src="http://gist-it.sudarmuthu.com/https://github.com/vonpupp/hyde-bootstrap-template/blob/feature/part1/layout/macros.j2?footer=0&slice=1:16">
-</script>
+{% syntax %}
+{% raw %}
+{% macro render_main_menu() -%}
+    <li>
+        {{ resource.meta.language }}
+    </li>
+    {% set lang_root = site.content.node_from_relative_path(resource.meta.language|default('en')) %}
+    {% for menu_item in lang_root.child_nodes|sort(attribute='name') %}
+        {% if menu_item.meta.listable %}
+            <li{% if menu_item.full_url in resource.full_url %} class="active"{% endif %}>
+                <a href="{{ menu_item.full_url }}">
+                    {{ menu_item.meta.title|capitalize }}
+                </a>
+            </li>
+        {% endif %}
+    {%- endfor %}
+{%- endmacro %}
+{% endraw %}
+{% endsyntax %}
 
 Basically this will list all the `sections` within a `language` and will show
 the correspondent title of that section. This is found on the `meta.yaml` file
@@ -293,7 +380,7 @@ within Hyde core. This could make things even easier for the user, we will see.
 Thanks for reading. Spot an error or want to explain something better, feel
 free to send me a PR.
 
-[Lakshmi]: http://
+[@lakshmivyas]: https://github.com/lakshmivyas
 
 {# Local Variables: #}
 {# mode: markdown #}
