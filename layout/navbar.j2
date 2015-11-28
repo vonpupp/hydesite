@@ -16,6 +16,16 @@
         </div>
 	<div id="navbar" class="navbar-collapse collapse">
 	  <ul class="nav navbar-nav pull-right">
+    <li>
+    <div id="lf-menubar" class="navbar-form navbar-right custom-navbar">
+      <form id="lf-search" action="//www.google.com/search">
+        <i id="lf-search-glass"><input type="submit" class="lf-sprite-search" value=""></i>
+        <input type="hidden" name="hl" value="{{ resource.meta.language }}">
+	    <input type="hidden" name="q"  value="site:albertdelafuente.com/{{ resource.meta.language }}/*">
+	    <input id="lf-search-query" type="text" name="q" value="">
+      </form>
+    </div>
+    </li>
             {#{% for menu_item in site.content.child_nodes|sort(attribute='name') %}#}
             {#{% if menu_item.name != "media" %}#}
             {% set lang_root = site.content.node_from_relative_path(resource.meta.language|default('en')) %}
@@ -30,30 +40,23 @@
             </li>
             {#{% endif %}#}
             {%- endfor %}
-<!--    <li>
-    <div id="lf-menubar">
-      <form id="lf-search" action="//www.google.com/search">
-        <i id="lf-search-glass"><input type="submit" class="lf-sprite-search" value=""></i>
-        <input type="hidden" name="hl" value="{{ resource.meta.language }}">
-	    <input type="hidden" name="q"  value="site:albertdelafuente.com/{{ resource.meta.language }}/*">
-	    <input id="lf-search-query" type="text" name="q" value="">
-      </form>
-    </div>
-    </li> -->
-          </ul>
+      </ul>
 
+<!--
+WORKING
       <form class="navbar-form navbar-right custom-navbar" method="get" role="search" action="//www.google.com/search">
-        <button id="search-button" class="btn btn-default"><span class="fa fa-search"></span>
-
+        <button id="search-button" class="btn btn-default fa fa-search">
         </button>
         <div id="search-form" class="form-group">
           <div class="input-group">
-            <input type="text" class="form-control" placeholder="Search"><span id="search-icon" class="input-group-addon"><span class="fa fa-search"></span></span>
+            <input type="text" class="form-control" placeholder="Search">
+            <span id="search-icon" class="input-group-addon"><span class="fa fa-search"></span></span>
 			<input type="hidden" name="hl" value="{{ resource.meta.language }}">
 			<input type="hidden" name="q"  value="site:albertdelafuente.com/{{ resource.meta.language }}/*">
           </div>
         </div>
       </form>
+-->
 
 	</div>
 

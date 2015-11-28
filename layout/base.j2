@@ -74,6 +74,12 @@
     <!-- HEADER -->
     {% include "navbar.j2" %}
     <!-- /.header -->
+"
+  <div id="lf-search-results">
+    <div id="lf-search-results-results"></div>
+    <span id="lf-search-results-close"
+	  class="lf-sprite-slimbox-close"></span>
+  </div>
 
     <!-- WRAPPER -->
     <div class="wrapper">
@@ -164,6 +170,7 @@
     <script src="/media/js/bootstrap.min.js"></script>
     <script src="/media/js/plugins.js"></script>
     <script src="/media/js/custom.js"></script>
+    <script src="/media/luffy.search.js"></script>
     <script src="{{ media_url('js/bootstrap-tab-bookmark.js') }}"></script>
 
     {% if mailchimp_goal_id %}
