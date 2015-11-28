@@ -25,8 +25,8 @@ luffy.search = function() {
 
     /* Submit request to Google Search */
     $("#lf-search").submit(function(event) {
-	var apikey = "AIzaSyBYIVw9Z98BD2xgc9IdKo8-tJMmyUJhGAs";
-	var cse = "005302691838508801550:am84wi88jr8";
+	var apikey = "AIzaSyA7Fu8UD2aHbjz1RMtz8XgCOd4lgkxDnLU";
+	var cse = "004965657501197365117:ypgxvjclcmw";
 	var query = $("#lf-search-query").val();
 	var lang = $("html").attr("lang");
 	event.preventDefault();
