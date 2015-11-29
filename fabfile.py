@@ -15,32 +15,59 @@ def _init():
     global HYDE_CONFIG
     HYDE_CONFIG = 'site-{}.yaml'.format(DEPLOY_TYPE)
     global DEPLOY_FOLDER
-    DEPLOY_FOLDER = 'deploy-{}-{}.albertdelafuente.com'.format(GIT_BRANCH, DEPLOY_TYPE)
+    #DEPLOY_FOLDER = 'deploy-{}-{}.albertdelafuente.com'.format(GIT_BRANCH, DEPLOY_TYPE)
+    DEPLOY_FOLDER = 'deploy'
     global DEPLOY_PATH
-    DEPLOY_PATH = os.path.join(ROOT_PATH, '..', DEPLOY_FOLDER)
+    #DEPLOY_PATH = os.path.join(ROOT_PATH, '..', DEPLOY_FOLDER)
+    DEPLOY_PATH = os.path.join(ROOT_PATH, DEPLOY_FOLDER)
 
 def _hyde(args):
     return local('hyde -x {}'.format(args))
+
+def _clean_private():
+    local('find content/en -maxdepth 1 -type l -delete')
+    local('find content/en/blog -maxdepth 1 -type l -delete')
 
 def _clean():
     _init()
     local('rm -rf {}'.format(DEPLOY_PATH))
     local('rm -rf content/blog/tags')
+    _clean_private()
+
+@task
+def kill():
+    #local('pkill -f {}'.format(PORT))
+    try:
+        local('pkill -f "hyde serve"')
+    except:
+        pass
+
+def local_no_exception(command):
+    try:
+        local(command)
+    except:
+        pass
 
 def _deploy():
     _init()
     _clean()
     if DEPLOY_TYPE == 'local':
-        local('ln -sf ~/Dropbox/appdata/hydesite/private ./content/en')
+        #local('ln -sf ~/Dropbox/appdata/hydesite/private ./content/en')
+        local_no_exception('ln -s ~/Dropbox/appdata/hydesite/en/* ./content/en')
+        local_no_exception('ln -s ~/Dropbox/appdata/hydesite/en/blog/* ./content/en/blog/')
+        local_no_exception('ln -s ~/Dropbox/appdata/hydesite/pt/* ./content/pt')
+        local_no_exception('ln -s ~/Dropbox/appdata/hydesite/pt/blog/* ./content/pt/blog/')
     else:
-        #local('find content/ -maxdepth 1 -type l -delete')
-        local('rm -f content/en/private')
+        _clean_private()
+        #local('rm -f content/en/private')
     #_hyde('-v gen -c {} -d {}'.format(HYDE_CONFIG, DEPLOY_PATH))
     _hyde('gen -c {} -d {}'.format(HYDE_CONFIG, DEPLOY_PATH))
 
 def _run():
     _deploy()
-    local('cd {} && python2 -m SimpleHTTPServer {}'.format(DEPLOY_PATH, PORT))
+    #local('cd {} && python2 -m SimpleHTTPServer {}'.format(DEPLOY_PATH, PORT))
+    kill()
+    _hyde('serve -c {} -d {} -p {}'.format(HYDE_CONFIG, DEPLOY_PATH, PORT))
 
 @task
 def clean_web():
@@ -146,6 +173,7 @@ def test_web_compile():
     deploy_web()
     # If no error, it pushes to github
     travis_push_github()
+
 
 def compress_images():
     local('smusher ./media/images')
