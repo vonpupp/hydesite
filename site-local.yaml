@@ -30,11 +30,11 @@ sorter:
       source_file.kind: html
       is_processable: True
   time:
-     attr: meta.created
-     reverse: True
-     filters:
-       source_file.kind: html
-       is_processable: True
+    attr: meta.created
+    reverse: True
+    filters:
+      source_file.kind: html
+      is_processable: True
 
 #sorter:
 #  name:
@@ -126,8 +126,8 @@ context:
     site_title: Albert De La Fuente
     blog_title: albert:/dev/blog
     author:
-        name: Albert De La Fuente
-        url: "http://www.albertdelafuente.com"
+      name: Albert De La Fuente
+      url: "http://www.albertdelafuente.com"
     google_analytics_id: #UA-27656036-2
     disqus_id: #vonpupp
     twitter_id: #vonpupp
@@ -143,8 +143,8 @@ context:
 meta:
   encoding: utf-8
   nodemeta: meta.yaml
-#  created: !!timestamp 2012-08-02 14:04:01
   lc: 'en_US'
+#  created: !!timestamp 2012-08-02 14:04:01
 
 #meta:
 #  nodemeta: meta.yaml
