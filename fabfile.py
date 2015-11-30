@@ -24,7 +24,7 @@ def _init():
 def _hyde(args):
     return local('hyde -x {}'.format(args))
 
-def _clean_private():
+def _unlink_private():
     local('find content/en -maxdepth 1 -type l -delete')
     local('find content/en/blog -maxdepth 1 -type l -delete')
 
@@ -32,13 +32,13 @@ def _clean():
     _init()
     local('rm -rf {}'.format(DEPLOY_PATH))
     local('rm -rf content/blog/tags')
-    _clean_private()
+    _unlink_private()
 
 @task
 def kill():
     #local('pkill -f {}'.format(PORT))
     try:
-        local('pkill -f "hyde serve"')
+        local('pkill -f "hyde -x serve"')
     except:
         pass
 
@@ -58,10 +58,12 @@ def _deploy():
         local_no_exception('ln -s ~/Dropbox/appdata/hydesite/pt/* ./content/pt')
         local_no_exception('ln -s ~/Dropbox/appdata/hydesite/pt/blog/* ./content/pt/blog/')
     else:
-        _clean_private()
+        _unlink_private()
         #local('rm -f content/en/private')
     #_hyde('-v gen -c {} -d {}'.format(HYDE_CONFIG, DEPLOY_PATH))
     _hyde('gen -c {} -d {}'.format(HYDE_CONFIG, DEPLOY_PATH))
+    # Clean again not to stage files by error
+    _unlink_private()
 
 def _run():
     _deploy()
