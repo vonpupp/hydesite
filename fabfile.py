@@ -2,7 +2,8 @@ from __future__ import with_statement
 from fabric.api import *
 import os
 
-GIT_BRANCH = local('git rev-parse --abbrev-ref HEAD', capture=True)
+#GIT_BRANCH = local('git rev-parse --abbrev-ref HEAD', capture=True)
+GIT_BRANCH = local('git symbolic-ref --short HEAD', capture=True)
 
 PORT = 8000
 ROOT_PATH = os.path.abspath(os.path.dirname(__file__))
