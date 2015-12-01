@@ -3,7 +3,8 @@ from fabric.api import *
 import os
 
 #GIT_BRANCH = local('git rev-parse --abbrev-ref HEAD', capture=True)
-GIT_BRANCH = local('git status | head -1', capture=True)
+#GIT_BRANCH = local('git status | head -1', capture=True)
+GIT_BRANCH = local("git branch | sed -n '/\* /s///p'", capture=True)
 
 PORT = 8000
 ROOT_PATH = os.path.abspath(os.path.dirname(__file__))
