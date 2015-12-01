@@ -1,7 +1,7 @@
 {% extends "blog-list.j2" %}
 
 {% block rss %}
-<link rel="alternate" type="application/rss+xml" href="/{{ resource.meta.language }}/tags/{{tag}}.xml" title="jd:/dev/blog – {{tag}}">
+<link rel="alternate" type="application/rss+xml" href="/{{ resource.meta.language }}/tags/{{tag}}.xml" title="albert:/dev/blog – {{tag}}">
 {% endblock %}
 
 {% block title %}{{ resource.meta.l10n.posts_with_tag }} {{tag}}{% endblock %}
