@@ -160,11 +160,16 @@ def _travis_push_github(repo, branch, cname):
         local('git config user.name "{}"'.format(GH_USER_NAME))
         local('git add -A .')
         local('git commit -a -m "Travis #{}"'.format(TRAVIS_BUILD_NUMBER))
-        _hidden_run('git remote add origin https://{}@github.com/{}/{}'.format(
+#        _hidden_run('git remote add origin https://{}@github.com/{}/{}'.format(
+#            GH_TOKEN,
+#            GH_USER_LOGIN,
+#            repo))
+#        _hidden_run('git push --quiet --force origin {} > /dev/null 2>&1'.format(branch))
+        local('git remote add origin https://{}@github.com/{}/{}'.format(
             GH_TOKEN,
             GH_USER_LOGIN,
             repo))
-        _hidden_run('git push --quiet --force origin {} > /dev/null 2>&1'.format(branch))
+        local('git push --quiet --force origin {} > /dev/null 2>&1'.format(branch))
 
 
 def travis_push_github():
