@@ -158,6 +158,7 @@ def _travis_push_github(repo, branch, cname):
         local('git init')
         local('git config user.email "{}"'.format(GH_USER_EMAIL))
         local('git config user.name "{}"'.format(GH_USER_NAME))
+        local('git checkout -b {}'.format(branch))
         local('git add -A .')
         local('git commit -a -m "Travis #{}"'.format(TRAVIS_BUILD_NUMBER))
 #        _hidden_run('git remote add origin https://{}@github.com/{}/{}'.format(
