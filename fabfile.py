@@ -169,7 +169,7 @@ def _travis_push_github(repo, branch, cname):
             GH_TOKEN,
             GH_USER_LOGIN,
             repo))
-        local('git push --quiet --force origin {} > /dev/null 2>&1'.format(branch))
+        local('git push --quiet --force origin {}'.format(branch))
 
 
 def travis_push_github():
