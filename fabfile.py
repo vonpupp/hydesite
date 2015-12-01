@@ -166,7 +166,6 @@ def _travis_push_github(repo, branch, cname):
 
 
 def travis_push_github():
-    import ipdb; ipdb.set_trace() # BREAKPOINT
     print('!!! BRANCH = {}'.format(GIT_BRANCH))
     if GIT_BRANCH is 'master':
         GH_CNAME = os.getenv('GH_CNAME')
