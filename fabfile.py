@@ -172,6 +172,8 @@ def travis_push_github():
     else:
         GH_CNAME = os.getenv('GH_CNAME_DEVEL')
         GH_PUSH_REPO = os.getenv('GH_PUSH_REPO_DEVEL')
+        print('CNAME = {}'.format(GH_CNAME))
+        print('REPO = {}'.format(GH_PUSH_REPO))
         _travis_push_github(GH_PUSH_REPO, 'gh-pages', GH_CNAME)
 
 
