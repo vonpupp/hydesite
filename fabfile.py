@@ -149,6 +149,9 @@ def _travis_push_github(repo, branch, cname):
     TRAVIS_BUILD_NUMBER = os.getenv('TRAVIS_BUILD_NUMBER')
     GH_TOKEN = os.getenv('GH_TOKEN')
     GH_USER_LOGIN = os.getenv('GH_USER_LOGIN')
+    print('inside:repo = {}'.format(repo))
+    print('inside:branch = {}'.format(branch))
+    print('inside:cname = {}'.format(cname))
     with lcd(DEPLOY_PATH):
         local('touch .nojekyll')
         local('echo "{}" > CNAME'.format(cname))
