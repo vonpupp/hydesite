@@ -1,0 +1,145 @@
+---
+title: "Hyde series: Intro and setup (part 1)"
+created: !!timestamp '2015-11-11 09:30:00'
+image: /media/images/blog/2015/dont-panic-learn-hyde.jpg
+uuid: 7d132f80-84b9-4de3-aea6-b1452aa97eff
+tags:
+    - Hyde
+    - Python
+---
+
+## Intro
+
+{% block excerpt %}
+{% mark excerpt %}
+
+This post will show how to setup a simple website using Hyde, a static website
+generator written in Python. The simplicity of the end result can be hosted
+anywhere and you will be able to write some of the content in Markdown if you
+want. This is very convenient for the simplicity of the markup and it is
+something very easy to learn.
+
+{% endmark %}
+{% endblock %}
+
+Probably some of you have already heard of [Jekyll], a static website static
+generator written in Ruby. If you have not, you might be wondering, what is a
+website static generator? Well, nowadays developing a website in plain HTML
+by itself it just not enough, so you will need some scripting language like PHP,
+or Python or similar. Of course you will need also a hosting service that is
+able to execute that language you chose, and you will probably need,
+additionally a database. I think you got the idea...
+
+To setup the environment of all those components might not be trivial in some
+cases and it could probably incur in some cost. One of the advantages of static
+websites generators is that they will work similarly as if you had a scripting
+language but they will produce a static website. So it will not need some
+of the components like databases or a scripting language to execute server code.
+So it can be resumed to the following phrase: text + templates = html files.
+This is pretty much convenient for cheap or free hosting and to reduce
+complexity of deploys. In the past I read that some government websites where
+also switching to static websites generators due to the high traffic they had,
+in this sense their site will basically depends on a HTTP server and it is
+easier to scale to the demands.
+
+I would say that the most popular static website generator nowadays is probably
+Jekyll due to Github's integration. However I prefer a Python stack whenever
+possible, since I am more familiar with; this is why I have chosen [Hyde].
+
+Once you have Hyde installed the workflow is quite simple, everytime you modify
+your `content` you need to `generate` the site. This is somehow analogous to
+`compile` your software when using a programming language.
+
+I want acknowledge and thank [Julien Danjou] and [@lakshmivyas] for their help
+and support with my first steps with Hyde; as [Andres] for encouraging me into
+writing these [hyde series] posts.
+
+## Tutorial overview
+
+  1. [Intro and setup]
+  2. [Multilanguage sites config]
+
+[Intro and setup]: 2015-11-11-hyde-intro-setup.html
+[Multilanguage sites config]: 2015-11-12-hyde-multilanguage-sites-config.html
+[hyde series]: /en/tags/Hyde.html
+
+## Installation
+
+I will assume that you are familiar with Python, pip and git. I have built a
+Fabric file to automate the building process. This is similar to using
+Makefiles. For the sake of simplicity I bundled all the files within a single
+repository. I thought about splitting the content from the template itself, and
+I believe this would be nice, however right now I am still in doubt what is the
+right way and time, so I won't right now and I will try to keep it as simple as
+possible. Use the following steps to install Hyde and the dependencies. The
+snippet is self explanatory.
+
+{% syntax bash %}
+# Clone the repository
+git clone https://github.com/vonpupp/hyde-bootstrap-template.git
+cd hyde-bootstrap-template
+
+# Change to the right place for this tutorial
+git checkout feature/part1
+
+# Create a virtualenv
+virtualenv2 env
+source env/bin/activate
+
+# Install the pip dependencies
+pip2 install -r requirements.txt
+{% endsyntax %}
+
+With this you should be good to go and build the website.
+
+## Building the website
+
+There are two steps to build a website. The first is to `generate` the site and
+the second is to `serve` the website with a webserver. For convenience I have
+tied these two into a single task in a Fabfile.
+
+{% syntax bash %}
+# Execute the fabric task
+fab run
+{% endsyntax %}
+
+This will generate and run a local webserver. To access your
+brand new Hyde site just type: `http://localhost:8123`.
+
+## Conclusions
+
+The resulting website is plain HTML + Javascript + CSS, so it can be hosted
+anywhere easily. You can use Github pages for so or even run your own webserver.
+
+If you have followed this tutorial you might think that Hyde is just amazing. If
+so, I would encourage you to get involved in the [Hyde community], we can help
+you out, and of course you can help us out =).
+
+For the time being I want to keep the [Hyde series] short and I will end this
+tutorial here. The next tutorial will show how to setup a [Multilanguage sites
+config].
+
+## TODOs
+
+- [ ] Include [gulp]
+- [ ] Include [pykwalify] for yaml lint
+- [ ] Include w3m validation
+
+[Jekyll]: https://jekyllrb.com/
+[Hyde]: http://hyde.github.io/
+[Julien Danjou]: http://julien.danjou.info
+[@lakshmivyas]: https://github.com/lakshmivyas
+[Andres]: https://evilham.com/en/about
+[Hyde community]: https://groups.google.com/forum/#!forum/hyde-dev
+[pykwalify]: https://github.com/Grokzen/pykwalify
+
+[gulp]: http://stefanimhoff.de/2014/gulp-tutorial-1-intro-setup/
+[Save CSS changes back]: http://stackoverflow.com/questions/6843495/how-to-save-css-changes-of-styles-panel-of-chrome-developer-tools
+
+{# Local Variables: #}
+{# mode: markdown #}
+{# End: #}
+
+<!--  vim: set spell: -->
+<!--  vim: set spelllang=en: -->
+<!--  vim: set filetype=htmldjango: -->
