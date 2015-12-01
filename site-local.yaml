@@ -1,4 +1,4 @@
-private: true
+offline: true
 base_url: /
 simple_copy:
   - media/*
@@ -20,6 +20,8 @@ plugins:
 
 syntax:
   use_figure: False
+  options:
+    linenos: table
 
 sorter:
   name:
@@ -28,11 +30,11 @@ sorter:
       source_file.kind: html
       is_processable: True
   time:
-     attr: meta.created
-     reverse: True
-     filters:
-       source_file.kind: html
-       is_processable: True
+    attr: meta.created
+    reverse: True
+    filters:
+      source_file.kind: html
+      is_processable: True
 
 #sorter:
 #  name:
@@ -90,9 +92,26 @@ tagger:
   tags:
     "Arch":
       descr: "Arch"
+    "Apps":
+      descr: "Apps"
+    "Bible":
+      descr_en: "Bible"
+      descr_es: "Biblia"
+      descr_pt: "Biblia"
+    "Hyde":
+      descr: "Hyde"
+    "Python":
+      descr: "Python"
     "System":
       descr_en: "System"
-      descr_es: "Sistemas"
+      descr_es: "Sistema"
+      descr_pt: "Sistema"
+    "Private":
+      descr: "Private"
+    "Git":
+      descr: "Git"
+    "CUI":
+      descr: "CUI"
 
 #urlcleaner:
 #  index_file_names:
@@ -107,8 +126,8 @@ context:
     site_title: Albert De La Fuente
     blog_title: albert:/dev/blog
     author:
-        name: Albert De La Fuente
-        url: "http://www.albertdelafuente.com"
+      name: Albert De La Fuente
+      url: "http://www.albertdelafuente.com"
     google_analytics_id: #UA-27656036-2
     disqus_id: #vonpupp
     twitter_id: #vonpupp
@@ -124,8 +143,8 @@ context:
 meta:
   encoding: utf-8
   nodemeta: meta.yaml
-#  created: !!timestamp 2012-08-02 14:04:01
   lc: 'en_US'
+#  created: !!timestamp 2012-08-02 14:04:01
 
 #meta:
 #  nodemeta: meta.yaml
@@ -135,17 +154,3 @@ meta:
 #  language: en
 #  analytics: #UA-21482482-4
 #  keywords: "archlinux, python, network"
-
-tagger:
-  sorter: time
-  tags:
-    "Arch":
-      descr: "Arch"
-    "Python":
-      descr: "Python"
-    "System":
-      descr_en: "System"
-      descr_es: "Sistema"
-      descr_pt: "Sistema"
-    "Private":
-      descr: "Private"

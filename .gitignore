@@ -5,7 +5,7 @@ content/media/js/reveal.js
 content/en/private
 
 # Env
-.env
+env
 
 # Python compiled files
 *.pyc
