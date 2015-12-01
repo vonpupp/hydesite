@@ -3,7 +3,7 @@ from fabric.api import *
 import os
 
 #GIT_BRANCH = local('git rev-parse --abbrev-ref HEAD', capture=True)
-GIT_BRANCH = local('git symbolic-ref --short HEAD', capture=True)
+GIT_BRANCH = local('git status | head -1', capture=True)
 
 PORT = 8000
 ROOT_PATH = os.path.abspath(os.path.dirname(__file__))
@@ -168,7 +168,7 @@ def _travis_push_github(repo, branch, cname):
 
 def travis_push_github():
     print('!!! BRANCH = {}'.format(GIT_BRANCH))
-    if GIT_BRANCH is 'master':
+    if 'master' in GIT_BRANCH:
         GH_CNAME = os.getenv('GH_CNAME')
         GH_PUSH_REPO = os.getenv('GH_PUSH_REPO')
         _travis_push_github(GH_PUSH_REPO, 'master', GH_CNAME)
