@@ -169,7 +169,6 @@ def _travis_push_github(repo, branch, cname):
 
 def travis_push_github():
     GIT_BRANCH = os.getenv('TRAVIS_BRANCH')
-    print('!!! BRANCH = {}'.format(GIT_BRANCH))
     if 'master' in GIT_BRANCH:
         GH_CNAME = os.getenv('GH_CNAME')
         GH_PUSH_REPO = os.getenv('GH_PUSH_REPO')
