@@ -151,7 +151,7 @@ def _travis_push_github(repo, branch, cname):
     GH_USER_LOGIN = os.getenv('GH_USER_LOGIN')
     with lcd(DEPLOY_PATH):
         local('touch .nojekyll')
-        local('echo "{}" > CNAME'.format(cname))
+        _hidden_run('echo "{}" > CNAME'.format(cname))
         local('git init')
         _hidden_run('git config user.email "{}"'.format(GH_USER_EMAIL))
         _hidden_run('git config user.name "{}"'.format(GH_USER_NAME))
