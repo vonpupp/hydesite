@@ -4,7 +4,7 @@ import os
 
 #GIT_BRANCH = local('git rev-parse --abbrev-ref HEAD', capture=True)
 #GIT_BRANCH = local('git status | head -1', capture=True)
-GIT_BRANCH = local("git branch | sed -n '/\* /s///p'", capture=True)
+#GIT_BRANCH = local("git branch | sed -n '/\* /s///p'", capture=True)
 
 PORT = 8000
 ROOT_PATH = os.path.abspath(os.path.dirname(__file__))
@@ -168,6 +168,7 @@ def _travis_push_github(repo, branch, cname):
 
 
 def travis_push_github():
+    GIT_BRANCH = os.getenv('TRAVIS_BRANCH')
     print('!!! BRANCH = {}'.format(GIT_BRANCH))
     if 'master' in GIT_BRANCH:
         GH_CNAME = os.getenv('GH_CNAME')
