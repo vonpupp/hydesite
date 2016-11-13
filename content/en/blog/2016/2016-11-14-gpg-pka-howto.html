@@ -1,0 +1,155 @@
+---
+title: "How to publish a GPG key via DNS"
+created: !!timestamp '2015-11-12 09:30:00'
+image: /media/images/blog/2016/snowden-pgp.jpg
+uuid: 3332dd93-b617-4fb4-a718-3e6136ad0cad
+tags:
+    - GPG
+---
+
+## Intro
+
+{% block excerpt %}
+{% mark excerpt %}
+
+Publishing keys is quite common. One nice way to do so is by using the Public
+Key Association (PKA) DNS record. Basically this is a record that points to a
+file that can be downloaded over the internet. I rather prefer this method over
+keyservers since they do not verify periodically the email ownership and keep
+keys updated.
+
+{% endmark %}
+{% endblock %}
+
+This tutorial is made of two basic parts, first creating a TXT DNS record and
+then verifying that the key gets downloaded properly.
+
+## Tutorial overview
+
+  1. Creating the TXT DNS record
+  2. Testing the PKA record
+
+
+## Assumptions
+
+I assume that you have gpg installed and that you know the basic idea on how it
+works, that you know what a private and a public keys are for and how to use
+them.
+
+
+## Creating the TXT DNS record
+
+To create the TXT DNS record you will need to know the fingerprint of the key.
+To do so:
+
+{% syntax bash %}
+$ gpg --list-keys vonpupp@keybase.io
+pub   rsa2048/0x536814BF4871A220 2016-11-12 [SC] [expires: 2018-11-12]
+      Key fingerprint = F0B9 B3FB 25E9 1209 728E  4844 5368 14BF 4871 A220
+      uid                   [ultimate] Albert De La Fuente <vonpupp@keybase.io>
+      uid                   [ultimate] Albert De La Fuente (Social email address) <vonpupp@gmail.com>
+      uid                   [ultimate] Albert De La Fuente (Main email address) <mail@albertdelafuente.com>
+      uid                   [ultimate] Albert De La Fuente (Haevas email address) <albert@haevas.com>
+      uid                   [ultimate] Albert De La Fuente (Academic email address) <albert@ime.usp.br>
+      sub   rsa2048/0xE2977BF3F82AB971 2016-11-12 [E] [expires: 2018-11-12]
+{% endsyntax %}
+
+In my case, the fingerprint is *F0B9 B3FB 25E9 1209 728E  4844 5368 14BF 4871
+A220*, or *0x536814BF4871A220* for short.
+
+Then you need to export the key with:
+
+{% syntax bash %}
+$ gpg --export -a 0x536814BF4871A220 > public-0x536814BF4871A220.asc
+{% endsyntax %}
+
+Then create a TXT record where:
+* The `Name` part:
+
+  Is composed of `mailbox`._pka.albertdelafuente.com. So for
+  instance if my email is `long-anti-spam-email-address@albertdelafuentedotcom`,
+  then the name part should be
+  `long-anti-spam-email-address._pka.albertdelafuente.com`.
+
+* The `Text` data:
+
+  Contains the `fingerprint` and the `URL` where to download the key. In my case:
+
+  {% syntax %}
+  "v=pka1;fpr=F0B9B3FB25E91209728E4844536814BF4871A220;uri=http://albertdelafuente.com/media/files/public-0x536814BF4871A220.asc"
+  {% endsyntax %}
+
+Do not forget to upload the key to match the `uri` as on the TXT record. In my case:
+http://albertdelafuente.com/media/files/public-0x536814BF4871A220.asc
+
+
+## Testing the PKA record
+
+Once done that you can download the key (just for testing purposes) on another computer or VM as follows:
+
+{% syntax bash %}
+$ echo "Test message" | gpg --auto-key-locate pka -ear mail@albertdelafuente.com
+{% endsyntax %}
+
+In my case this will prompt you with a confirmation since my primary uid does
+not match the email. This is made in purpose because I have read that some
+spammers are using keyservers to get valid email addresses, therefore I always
+use keybase as my primary id.
+
+You will see something similar to this as the output:
+
+{% syntax bash %}
+gpg: directory `/home/vagrant/.gnupg' created
+gpg: new configuration file `/home/vagrant/.gnupg/gpg.conf' created
+gpg: WARNING: options in `/home/vagrant/.gnupg/gpg.conf' are not yet active during this run
+gpg: keyring `/home/vagrant/.gnupg/secring.gpg' created
+gpg: keyring `/home/vagrant/.gnupg/pubring.gpg' created
+gpg: requesting key 4871A220 from http server albertdelafuente.com
+gpg: /home/vagrant/.gnupg/trustdb.gpg: trustdb created
+gpg: key 4871A220: public key "Albert De La Fuente <vonpupp@keybase.io>" imported
+gpg: Total number processed: 1
+gpg:               imported: 1  (RSA: 1)
+gpg: automatically retrieved `mail@albertdelafuente.com' via PKA
+gpg: F82AB971: There is no assurance this key belongs to the named user
+
+pub  2048R/F82AB971 2016-11-12 Albert De La Fuente <vonpupp@keybase.io>
+ Primary key fingerprint: F0B9 B3FB 25E9 1209 728E  4844 5368 14BF 4871 A220
+      Subkey fingerprint: 7A10 07B4 3F49 5317 5DE0  52E8 E297 7BF3 F82A B971
+
+It is NOT certain that the key belongs to the person named
+in the user ID.  If you *really* know what you are doing,
+you may answer the next question with yes.
+
+Use this key anyway? (y/N) y
+-----BEGIN PGP MESSAGE-----
+Version: GnuPG v1
+
+hQEMA+KXe/P4KrlxAQf/d1yxYFBSPs0RKHJ98w+s82jK25R/IXCiFNe6BkX+oyp+
+uh+4AObx93SuJ/ryHlthHQmnpid4BQWmhmCksiAH+xD1xrlrCDIsNQfJ5+aPQXjz
++Z6iKrWy8Lk13i6u3wgMZuk2eKN9Z1ppi15arXhFc93cta5p5K5tAH7CwMd5zP93
+r7wgI2Jff+x3erN0zbkJ2PZgDrHZVLVWyOnwgRBw12N8El3L8i6JFbNY+g25AMUm
+MMCPSTit8ILsFoPtkrJEOdq5p5aCw3dvIVSzmxflMJEsgqO+Per+KxtMehaBF5qX
+I2TzltcgjlisSJ3rcBtjpm12rSVJrPs4BG2UKz0w6tJIAbF0FLlWXe8zMJMK1E3Q
+BQ7y/gjTduiuuD++qyIxqWCoLCgHixvP4WiTPbbKvoXl4BP8Bf1ED9M/0Cyss2NI
+tW7vVlLcXRQb
+=gdKa
+-----END PGP MESSAGE-----
+{% endsyntax %}
+
+## Conclusions
+
+As you can see it is not that hard to publish a public key via DNS. You need to
+export your key to a file and upload it and then create a TXT record relating
+the fingerprint and the location of the key. You may also publish your key on a
+keyserver also since not everybody retrieve the keys over DNS.
+
+Thanks for reading. Spot an error or want to explain something better, feel
+free to send me a PR.
+
+{# Local Variables: #}
+{# mode: markdown #}
+{# End: #}
+
+<!--  vim: set spell: -->
+<!--  vim: set spelllang=en: -->
+<!--  vim: set filetype=htmldjango: -->
