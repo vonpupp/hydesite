@@ -1,10 +1,10 @@
 ---
 title: "How to publish a GPG key via DNS"
-created: !!timestamp '2015-11-12 09:30:00'
+created: !!timestamp '2016-11-13 09:30:00'
 image: /media/images/blog/2016/snowden-pgp.jpg
 uuid: 3332dd93-b617-4fb4-a718-3e6136ad0cad
 tags:
-    - GPG
+    - gpg
 ---
 
 ## Intro
@@ -14,12 +14,22 @@ tags:
 
 Publishing keys is quite common. One nice way to do so is by using the Public
 Key Association (PKA) DNS record. Basically this is a record that points to a
-file that can be downloaded over the internet. I rather prefer this method over
-keyservers since they do not verify periodically the email ownership and keep
-keys updated.
+file that can be downloaded over the internet. This method is an alternative
+(not exclusive) to using keyservers.
 
 {% endmark %}
 {% endblock %}
+
+One of the problems of keyservers (in my opinion), is the problem of deleting
+old keys. I pretty much like the idea of PGP keyserver which verifies
+periodically by sending an email if the address is still in use and therefore
+maintain that `uid` of the key. The only problem is that the PGP server is
+centralized and it does not use FLOSS standards.
+
+I understand that deleting a key on a distributed environment is hard and
+probably maintaining a history of deletions as done actually on most of
+keyservers is still a good solution. However since I don't use GPG very often
+and I am not publishing my key yet, I wanted to try PKA.
 
 This tutorial is made of two basic parts, first creating a TXT DNS record and
 then verifying that the key gets downloaded properly.
@@ -75,7 +85,7 @@ Then create a TXT record where:
 
   Contains the `fingerprint` and the `URL` where to download the key. In my case:
 
-  {% syntax %}
+  {% syntax bash %}
   "v=pka1;fpr=F0B9B3FB25E91209728E4844536814BF4871A220;uri=http://albertdelafuente.com/media/files/public-0x536814BF4871A220.asc"
   {% endsyntax %}
 
