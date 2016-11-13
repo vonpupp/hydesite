@@ -9,10 +9,10 @@ the website (i.e: compile and push to a gh-pages) to the repository if no
 syntactic errors are found. Here is the status:
 
 * Travis build status (master branch): [![Build
-Status](http://img.shields.io/travis/vonpupp/hydesite/master.svg?style=flat-square)](https://travis-ci.org/vonpupp/hidesite)
+Status](http://img.shields.io/travis/vonpupp/hydesite/master.svg?style=flat-square)](https://travis-ci.org/vonpupp/hydesite)
 
 * Travis build status (develop branch): [![Build
-Status](http://img.shields.io/travis/vonpupp/hydesite/develop.svg?style=flat-square)](https://travis-ci.org/vonpupp/hidesite)
+Status](http://img.shields.io/travis/vonpupp/hydesite/develop.svg?style=flat-square)](https://travis-ci.org/vonpupp/hydesite)
 
 I use Waffle to keep track of the issues as the posts/topics I want to research
 in a neat Kanban. Here is the current status and the throughput graph.
