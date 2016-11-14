@@ -1,46 +1,168 @@
-<!--  vim: set spell: -->
-<!--  vim: set spelllang=en: -->
+---
+title: About me
+default_block: None
+---
+{% block container %}
+<div class="container padding type-product inforow">
+  <div class="col-sm-4 text-center magnific-wrap">
+    <img src="/media/images/about/about-photo.jpg"
+         data-animate="fadeInLeft" class="animate"
+         alt="About Albert">
+  </div>
+  <div class="col-sm-8">
+    <p class="lead">
+      Thanks for visiting my website. My name is Albert, and I am a Free
+      Software and Open Source professional, passionate about programming,
+      distributed systems and Computer Science in general.
+    </p>
+    <p class="lead">
+      I have recently completed my <a href="/media/thesis.pdf">MSc</a> in
+      Computer Science. During the day, I work as a software engineer and
+      researcher at an undisclosed company. In my free time I enjoy
+      contributing to Open Source software and learning new things. I also
+      write technical articles in my
+      <a href="/blog">blog</a>.
+    </p>
+    <p class="lead">
+      Be aware that this site will detect your browser language and redirect you to the appropriate language:
+      <a href="/pt/blog">portuguese</a>,
+      <a href="/es/blog">spanish</a>, or
+      <a href="/en/blog">english</a> (default, and most used).
+      Be aware that not all posts are translated in all languages.
+      Depending on the topic I tend to use more a language than another.
+    </p>
+    <p class="lead">
+      I also enjoy music, traveling, languages, photography, design, to
+      understand how things work and solving problems.
+    </p>
+  </div>
+</div>
 
-{% block wrapper %}
-
-<div class="overlay overlay-dark pattern pattern-lines bg-sl-"
-     style="background: url('/media/images/about/background.jpg');
-            background-size: cover;
-            height: calc(100vh - 90px) !important;">
-  <div class="jumbotron container inforow middle text-center">
-    <div class="col-sm-6 col-sm-offset-3">
-      <p class="text-ccc">
-        Thanks for visiting my website. My name is Albert, and I have been a Free
-        Software and Open Source enthusiast, passionate about programming,
-        distributed systems and Computer Science in general.
-      </p>
-
-      <p class="text-ccc">
-		I have recently completed my <a href="/media/thesis.pdf">MSc</a> in
-        Computer Science. During the day, I work as a software engineer and
-        researcher at an undisclosed company. In my free time I enjoy
-        contributing to Open Source software and learning new things. I also
-        write technical articles in my
-        <a href="/blog">blog</a>.
-      </p>
-
-      <p class="text-ccc">
-        This site is created using <a href="http://hyde.github.io/">Hyde</a>
-		a static web site generator written in Python. The template is based on
-        Julian Danjou's.
-      </p>
-
-      <p class="text-ccc">
-		I also enjoy music, traveling, languages, photography, design, to
-		understand how things work and solving problems.
-      </p>
-      <p class="padding">
-        <a href="http://www.google.com/recaptcha/mailhide/d?k=01BXTzh71GhY1dSkeSYy-1FQ==&amp;c=bl3zlECgZDdg22Gvk10AiNFVClxHe4PC2PHG2pZnYyo=" onclick="window.open('http://www.google.com/recaptcha/mailhide/d?k\07501BXTzh71GhY1dSkeSYy-1FQ\75\75\46c\75bl3zlECgZDdg22Gvk10AiNFVClxHe4PC2PHG2pZnYyo\075', '', 'toolbar=0,scrollbars=0,location=0,statusbar=0,menubar=0,resizable=0,width=500,height=300'); return false;" class="btn btn-default">
-          Contact Me
-        </a>
-      </p>
+<div class="container">
+  <h2 class="text-center">Core areas:</h2>
+  <div class="row padding-top">
+    <div class="col-sm-6">
+      <div class="col-sm-3 text-center">
+        <span class="icon glyphicon glyphicon-ok-sign"></span>
+      </div>
+      <div class="col-sm-9">
+        <h4>
+          Management
+        </h4>
+        <p>
+          With more than 5 years of experience in IT management in a multinational company across Latin America.
+          Ensuring IT operations, leading new projects and proposing new technologies.
+          Operations in Argentina, Brazil, Colombia, Mexico, Panama, Peru, Spain & Venezuela among other countries.
+        </p>
+      </div>
+    </div>
+    <div class="col-sm-6">
+      <div class="col-sm-3 text-center">
+        <span class="icon glyphicon glyphicon-cloud"></span>
+      </div>
+      <div class="col-sm-9">
+        <h4>
+          Cloud and Infrastructure
+        </h4>
+        <p>
+          Experience with IaaS like OpenStack and Amazon Web Services, PaaS like Heroku and various SaaS.
+        </p>
+        <p>
+          I hold several Red Hat certifications like: Red Hat Certified System Administrator, Red Hat Certified Engineer and
+          Red Hat Certified Jboss Administrator.
+        </p>
+      </div>
+    </div>
+  </div>
+  <div class="row padding">
+    <div class="col-sm-6">
+      <div class="col-sm-3 text-center">
+        <span class="icon fa fa-code"></span>
+      </div>
+      <div class="col-sm-9">
+        <h4>
+          Development
+        </h4>
+        <p>
+          I have been developing software professionally early from my college student years.
+          From early Delphi 3 and going though various languages, paradigms and technologies.
+          I just love to solve client problems
+        </p>
+      </div>
+    </div>
+    <div class="col-sm-6">
+      <div class="col-sm-3 text-center">
+        <span class="icon glyphicon glyphicon-cog"></span>
+      </div>
+      <div class="col-sm-9">
+        <h4>
+          ERP
+        </h4>
+        <p>
+          Business operations is more than just Enterprise Resource Planning software.
+          My goal is simple, to implement affordable, easy-to-use integrated business software
+          so companies can focus on what is important. Growing their business instead of the overhead of running the software
+        </p>
+      </div>
     </div>
   </div>
 </div>
+
+<div class="container">
+  <div class="margin-side">
+    <div class="text-center">
+      <div class="subheader">
+        <span class="icon glyphicon glyphicon-certificate"></span>
+        <h2>
+          Certificates
+        </h2>
+      </div>
+    </div>
+    <hr>
+    <div class="row">
+      <div class="col-sm-4">
+        <img class="img-thumbnail"
+             alt="Red Hat Certified System Administrator"
+             src="/media/images/badges/rhcsa-small.png">
+        <p>
+          <h4><strong>RHCSA</strong></h4>
+          <small>
+            Red Hat Certified System Administrator
+          </small>
+        </p>
+      </div>
+      <div class="col-sm-4">
+        <img class="img-thumbnail"
+             alt="Red Hat Certified Engineer"
+             src="/media/images/badges/rhce-small.png">
+        <p>
+          <h4><strong>RHCE</strong></h4>
+          <small>
+            Red Hat Certified Engineer
+          </small>
+        </p>
+      </div>
+      <div class="col-sm-4">
+        <img class="img-thumbnail"
+             alt="Red Hat Certified Jboss Administrator"
+             src="/media/images/badges/rhcja-small.png">
+        <p>
+          <h4><strong>RHCJA</strong></h4>
+        <small>
+          Red Hat Certified Jboss Administrator
+        </small>
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock %}
+
+{% block js %}
+{{ super() }}
+
+<script type="text/javascript" src="https://gumroad.com/js/gumroad.js"></script>
+<script src="//platform.twitter.com/oct.js" type="text/javascript"></script>
 
 {% endblock %}
