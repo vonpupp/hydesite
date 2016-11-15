@@ -78,6 +78,12 @@ tagger:
       descr: "Git"
     "CUI":
       descr: "CUI"
+    "gpg":
+      descr: "GPG"
+    "security":
+      descr_en: "Security"
+      descr_es: "Seguridad"
+      descr_pt: "Segurança"
 
 #urlcleaner:
 #  index_file_names:
