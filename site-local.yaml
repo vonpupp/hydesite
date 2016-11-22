@@ -90,27 +90,27 @@ tagger:
       template: tag.j2
       extension: html
   tags:
-    "Arch":
+    "arch":
       descr: "Arch"
-    "Apps":
+    "apps":
       descr: "Apps"
-    "Bible":
+    "bible":
       descr_en: "Bible"
       descr_es: "Biblia"
       descr_pt: "Biblia"
-    "Hyde":
+    "hyde":
       descr: "Hyde"
-    "Python":
+    "python":
       descr: "Python"
-    "System":
+    "system":
       descr_en: "System"
       descr_es: "Sistema"
       descr_pt: "Sistema"
-    "Private":
+    "private":
       descr: "Private"
-    "Git":
+    "git":
       descr: "Git"
-    "CUI":
+    "cui":
       descr: "CUI"
 
 #urlcleaner:
