@@ -1,0 +1,141 @@
+---
+title: "How to manually boot/recover a system with LUKS and LVM"
+created: !!timestamp '2016-11-22 09:30:00'
+image: /media/images/blog/2016/2016-11-22-141444_2720x1024_scrot.png
+uuid: 60920c73-3771-403b-850b-36ababb50520
+tags:
+    - arch
+    - system
+---
+
+## Intro
+
+{% block excerpt %}
+{% mark excerpt %}
+
+I have been using LVM on top of LUKS for more than 2 years without problems.
+However since I haven't had the chance to troubleshoot these technologies in
+the past I was quite concerned of what would happen when I would have problems.
+Today my main computer didn't boot up and I had to fix it manually. This
+post shows the steps I performed to recover my system.
+
+{% endmark %}
+{% endblock %}
+
+I use Arch Linux and I prepared a [repository with my custom install method]
+based on archinstaller. Basically I have a custom partitioning based on LVM on
+top of LUKS and some variables to start he installing method.
+
+Here is an overview of the parts on this tutorial:
+
+## Tutorial overview
+
+  1. Create a bootable USB and boot the broken system with it (AKA recovery mode)
+  1. Chroot into the system
+  1. Fix the issue
+
+
+## Assumptions
+
+I will assume that the error is similar as mine. After opening the LUKS device,
+I had the following problem:
+`ERROR: device /dev/mapper/storage-root not found`.
+
+
+## Create a bootable USB
+
+To create a bootable USB you need to download the latest Arch Linux iso and
+then us `dd` to dump it to a flash drive.
+
+{% syntax bash %}
+dd bs=4M if=/path/to/archlinux.iso of=/dev/sdx status=progress && sync
+{% endsyntax %}
+
+After completion, use the same flash drive to boot the broken computer. You
+generally need to hit a key on the `F5` - `F6` range to choose the boot method.
+
+
+## Chroot into the system
+
+Once the system has booted, now we need to mount everything the system would
+mount on a boot stage.  Adapt the LUKS label and LVM devices according to your
+needs.
+
+{% syntax bash %}
+# Open the LUKS device.
+cryptsetup luksOpen /dev/disk/by-partlabel/cryptlvm lvm
+
+# Mount the root partition
+mount /dev/storage/root /mnt
+
+# Mount the boot partition
+mount /dev/sda1 /mnt/boot
+
+# Mount proc, sys and dev
+mount -t proc proc proc/
+mount -t sysfs sys sys/
+mount -o bind /dev dev/
+
+# Switch to bash
+bash
+
+# Chroot
+chroot /mnt
+
+# Bring up network if needed
+dhcpcd eth0
+{% endsyntax %}
+
+At this point you should have shell with a recovery environment set to fix the
+issue, so let's fix it.
+
+
+## Fix the issue
+
+To fix the issue we basically are going to perform an upgrade an recreate the
+initial ramdisk
+
+{% syntax bash %}
+# Update the packages database
+pacman -Syy
+
+# Upgrade the packages
+pacman -Syu
+
+# Update udev package
+pacman -S udev
+
+# Update mkinitcpio package
+pacman -S mkinitcpio
+
+# Recreate the initial ramdisk
+mkinitcpio -p linux
+
+# Exit the chroot environment
+exit
+
+# Reboot
+reboot
+{% endsyntax %}
+
+If everything went well, you now should be able to boot the system properly.
+
+## Conclusions
+
+I was quite worried about how to solve this issue due to the several layers of
+complexity: GPT, LUKS and LVM, however everything went out quite smoothly. The
+key part is to use a USB flash drive and then mount the boot and root
+partitions to recreate the ramdisk.
+
+Thanks for reading. Spot an error or want to explain something better, feel
+free to send me a PR.
+
+[repository with my custom install method]: https://github.com/vonpupp/arch-installer/tree/feature/efi-crypt
+
+{# Local Variables: #}
+{# mode: markdown #}
+{# End: #}
+
+<!--  vim: set spell: -->
+<!--  vim: set spelllang=en: -->
+<!--  vim: set filetype=htmldjango: -->
