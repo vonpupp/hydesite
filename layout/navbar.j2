@@ -20,6 +20,7 @@
             {#{% if menu_item.name != "media" %}#}
             {% set lang_root = site.content.node_from_relative_path(resource.meta.language|default('en')) %}
             {% for menu_item in lang_root.child_nodes|sort(attribute='name') %}
+            {% if site.config.private or (not site.config.private and not menu_item.meta.private) %}
             <li{% if menu_item.full_url in resource.full_url %} class="active"{% endif %}>
               <a href="{{ menu_item.full_url }}">
                 {% if menu_item.meta.icon %}
@@ -28,7 +29,7 @@
                 {{ menu_item.meta.title|capitalize }}
               </a>
             </li>
-            {#{% endif %}#}
+            {% endif %}
             {%- endfor %}
 <!--    <li>
     <div id="lf-menubar">
