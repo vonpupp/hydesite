@@ -1381,8 +1381,8 @@
 })(jQuery);
 
 $(function() {
-  $("#search-button, #search-icon").click(function(e) {
-      e.preventDefault();
-      $("#search-button, #search-form").toggle();
-    });
+//    $("#search-button, #search-icon").click(function(e) {
+//        e.preventDefault();
+//        $("#search-button, #search-form").toggle();
+//    });
 });
