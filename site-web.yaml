@@ -99,10 +99,10 @@ context:
     addthis_id: ra-5626d7f3b1c34ff8
     mailchimp_goal_id: #
     languages:
-      fr: Français
       en: English
-      es: Español
-      pt: Portugues
+#      fr: Français
+#      es: Español
+#      pt: Portugues
 
 meta:
   encoding: utf-8

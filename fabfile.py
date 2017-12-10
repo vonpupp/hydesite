@@ -6,7 +6,7 @@ import os
 #GIT_BRANCH = local('git status | head -1', capture=True)
 #GIT_BRANCH = local("git branch | sed -n '/\* /s///p'", capture=True)
 
-PORT = 8000
+PORT = 7653
 ROOT_PATH = os.path.abspath(os.path.dirname(__file__))
 DEPLOY_FOLDER = None
 DEPLOY_PATH = None
@@ -60,10 +60,10 @@ def _deploy():
             'ln -s ~/Dropbox/appdata/hydesite/en/* ./content/en')
         local_no_exception(
             'ln -s ~/Dropbox/appdata/hydesite/en/blog/* ./content/en/blog/')
-        local_no_exception(
-            'ln -s ~/Dropbox/appdata/hydesite/pt/* ./content/pt')
-        local_no_exception(
-            'ln -s ~/Dropbox/appdata/hydesite/pt/blog/* ./content/pt/blog/')
+#        local_no_exception(
+#            'ln -s ~/Dropbox/appdata/hydesite/pt/* ./content/pt')
+#        local_no_exception(
+#            'ln -s ~/Dropbox/appdata/hydesite/pt/blog/* ./content/pt/blog/')
     else:
         _unlink_private()
     _hyde('gen -c {} -d {}'.format(HYDE_CONFIG, DEPLOY_PATH))
@@ -189,6 +189,7 @@ def test_web_compile():
 
 def compress_images():
     local('smusher ./media/images')
+    #local('jpegoptim --size=4700k *')
     local('find content -name "*.png" -exec pngcrush -ow {}')
 
 #@hosts(PROD)

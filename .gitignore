@@ -1,3 +1,8 @@
+content/media/images/talks/*.png
+stork.cfg
+.DS_Store
+resources/
+
 # Git modules
 content/media/js/reveal.js
 
@@ -21,7 +26,6 @@ content/en/tags
 content/es/tags
 content/pt/tags
 
-content/media/images/talks/*.png
-stork.cfg
-.DS_Store
-resources/
+# WOTM
+content/pt/blog/2015/wotm/*.html
+content/pt/blog/2015/wotm/*.pdf
