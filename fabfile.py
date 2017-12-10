@@ -186,6 +186,7 @@ def test_web_compile():
 
 def compress_images():
     local('smusher ./media/images')
+    #local('jpegoptim --size=4700k *')
     local('find content -name "*.png" -exec pngcrush -ow {}')
 
 #@hosts(PROD)
