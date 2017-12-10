@@ -20,4 +20,5 @@ l = 'en';
 if (navigator.language.split(/-/)[0] === "{{ code }}")  l = "{{ content_url(code) }}";
 {%- endfor %}
 location.href = l + '/blog';
+location.href = 'en/blog';
 </script>
